@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#e91e63">
+    <title>赛马娘技能大全 - 200+技能效果查询 | UmaGuide</title>
+    <meta name="description" content="查询所有赛马娘技能的详细效果、发动条件、获取方式和推荐搭配角色。">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏇</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <span class="logo">🏇</span>
+                    <span class="brand-name">UmaGuide</span>
+                </a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="characters.html">角色图鉴</a></li>
+                <li><a href="skills.html" class="active">技能数据库</a></li>
+                <li><a href="races.html">赛事攻略</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="breadcrumb container">
+        <a href="index.html">首页</a>
+        <span class="separator">/</span>
+        <span>技能数据库</span>
+    </div>
+
+    <section class="page-header container">
+        <h1 class="page-title">技能数据库</h1>
+        <p class="page-subtitle">共收录 200+ 个技能效果</p>
+    </section>
+
+    <section class="filters container">
+        <div class="filter-group">
+            <label class="filter-label">技能类型：</label>
+            <div class="filter-buttons" id="skillTypeFilters">
+                <!-- 动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <section class="skills-section container" id="skillsSection">
+        <!-- 动态加载 -->
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 UmaGuide. 游戏内容版权归 Cygames 所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            renderSkillsPage();
+        });
+        
+        function renderSkillsPage() {
+            if (!window.skillsData) {
+                document.getElementById('skillsSection').innerHTML = '<div class="no-results">技能数据加载中...</div>'; 
+                return;
+            }
+            
+            const skillsByType = {};
+            window.skillsData.forEach(skill => {
+                if (!skillsByType[skill.type]) {
+                    skillsByType[skill.type] = [];
+                }
+                skillsByType[skill.type].push(skill);
+            });
+            
+            const filterContainer = document.getElementById('skillTypeFilters');
+            filterContainer.innerHTML = `
+                <button class="filter-btn active" data-type="all">全部</button>
+                ${Object.keys(skillsByType).map(type => 
+                    `<button class="filter-btn" data-type="${type}">${type}</button>`
+                ).join('')}
+            `;
+            
+            renderSkillsList(skillsByType);
+            
+            filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const selectedType = this.dataset.type;
+                    if (selectedType === 'all') {
+                        renderSkillsList(skillsByType);
+                    } else {
+                        renderSkillsList({ [selectedType]: skillsByType[selectedType] });
+                    }
+                });
+            });
+        }
+        
+        function renderSkillsList(skillsByType) {
+            const container = document.getElementById('skillsSection');
+            container.innerHTML = Object.entries(skillsByType).map(([type, skills]) => `
+                <div class="skill-type-section">
+                    <h2 class="skill-type-title">${type}系技能</h2>
+                    <div class="grid grid-3">
+                        ${skills.map(skill => `
+                            <a href="skill-detail.html?id=${skill.id}" class="skill-list-card">
+                                <div class="skill-card-header">
+                                    <img src="${skill.icon}" alt="${skill.name_cn}" class="skill-card-icon"
+                                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%27 height=%27100%27%3E%3Crect fill=%27%23f0f0f0%27 width=%27100%27 height=%27100%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 font-size=%2740%27%3E⚡%3C/text%3E%3C/svg%3E'">
+                                    <div>
+                                        <h3 class="skill-card-name">${skill.name_cn}</h3>
+                                        <p class="skill-card-name-jp">${skill.name_jp}</p>
+                                    </div>
+                                </div>
+                                <p class="skill-card-effect">${skill.effect}</p>
+                                <div class="skill-card-footer">
+                                    <span class="skill-card-rarity">${skill.rarity === 'normal' ? '普通' : skill.rarity === 'rare' ? '稀有' : '固有'}</span>
+                                    <span class="skill-card-value">${skill.effect_value || ''}</span>
+                                </div>
+                            </a>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>

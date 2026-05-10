@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#e91e63">
+    <title>赛马娘全角色图鉴 - 80+马娘属性技能一览 | UmaGuide</title>
+    <meta name="description" content="查看所有赛马娘角色的详细属性、推荐育成方向、技能搭配和因子配置。">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏇</text></svg>">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav-brand">
+                <a href="index.html">
+                    <span class="logo">🏇</span>
+                    <span class="brand-name">UmaGuide</span>
+                </a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="characters.html" class="active">角色图鉴</a></li>
+                <li><a href="skills.html">技能数据库</a></li>
+                <li><a href="races.html">赛事攻略</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="breadcrumb container">
+        <a href="index.html">首页</a>
+        <span class="separator">/</span>
+        <span>角色图鉴</span>
+    </div>
+
+    <section class="page-header container">
+        <h1 class="page-title">角色图鉴</h1>
+        <p class="page-subtitle">共收录 80+ 位赛马娘的详细资料</p>
+    </section>
+
+    <section class="filters container">
+        <div class="filter-group">
+            <label class="filter-label">稀有度：</label>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="rarity" data-value="all">全部</button>
+                <button class="filter-btn" data-filter="rarity" data-value="3">★★★</button>
+                <button class="filter-btn" data-filter="rarity" data-value="2">★★</button>
+                <button class="filter-btn" data-filter="rarity" data-value="1">★</button>
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <label class="filter-label">脚质：</label>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="type" data-value="all">全部</button>
+                <button class="filter-btn" data-filter="type" data-value="逃げ">逃げ</button>
+                <button class="filter-btn" data-filter="type" data-value="先行">先行</button>
+                <button class="filter-btn" data-filter="type" data-value="差し">差し</button>
+                <button class="filter-btn" data-filter="type" data-value="追込">追込</button>
+            </div>
+        </div>
+        
+        <div class="filter-group">
+            <label class="filter-label">距离：</label>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="distance" data-value="all">全部</button>
+                <button class="filter-btn" data-filter="distance" data-value="短距離">短距離</button>
+                <button class="filter-btn" data-filter="distance" data-value="マイル">マイル</button>
+                <button class="filter-btn" data-filter="distance" data-value="中距離">中距離</button>
+                <button class="filter-btn" data-filter="distance" data-value="長距離">長距離</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="characters-list container">
+        <div class="grid grid-4" id="charactersList">
+            <!-- 动态加载角色卡片 -->
+        </div>
+        
+        <div id="noResults" class="no-results" style="display: none;">
+            <p>😢 没有找到符合条件的角色</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">UmaGuide</h3>
+                    <p class="footer-desc">专注赛马娘攻略数据整理</p>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="characters.html">角色图鉴</a></li>
+                        <li><a href="skills.html">技能数据库</a></li>
+                        <li><a href="races.html">赛事攻略</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 UmaGuide. 游戏内容版权归 Cygames 所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCharactersList();
+            setupFilters();
+        });
+        
+        function renderCharactersList() {
+            const container = document.getElementById('charactersList');
+            const noResults = document.getElementById('noResults');
+            
+            if (window.charactersData && window.charactersData.length > 0) {
+                container.innerHTML = window.charactersData.map(char => `
+                    <a href="character-detail.html?id=${char.id}" class="character-card">
+                        <div class="character-image">
+                            <img src="${char.icon}" alt="${char.name_cn}" loading="lazy">
+                            <div class="character-rarity">${'★'.repeat(char.rarity)}</div>
+                        </div>
+                        <div class="character-info">
+                            <h3 class="character-name">${char.name_cn}</h3>
+                            <p class="character-name-jp">${char.name_jp}</p>
+                            <div class="character-tags">
+                                <span class="tag tag-type">${char.type}</span>
+                                <span class="tag tag-distance">${char.distance[0]}</span>
+                            </div>
+                            <div class="character-stats-mini">
+                                <span title="速度">速${char.stats.speed}</span>
+                                <span title="力量">力${char.stats.power}</span>
+                            </div>
+                        </div>
+                    </a>
+                `).join('');
+                noResults.style.display = 'none';
+            } else {
+                container.innerHTML = '';
+                noResults.style.display = 'block';
+            }
+        }
+        
+        function setupFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const filters = {
+                rarity: 'all',
+                type: 'all',
+                distance: 'all'
+            };
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filterType = this.dataset.filter;
+                    const filterValue = this.dataset.value;
+                    
+                    this.parentElement.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    filters[filterType] = filterValue;
+                    filterCharacters(filters);
+                });
+            });
+        }
+        
+        function filterCharacters(filters) {
+            let filtered = window.charactersData;
+            
+            if (filters.rarity !== 'all') {
+                filtered = filtered.filter(c => c.rarity == filters.rarity);
+            }
+            if (filters.type !== 'all') {
+                filtered = filtered.filter(c => c.type === filters.type);
+            }
+            if (filters.distance !== 'all') {
+                filtered = filtered.filter(c => c.distance.includes(filters.distance));
+            }
+            
+            const container = document.getElementById('charactersList');
+            const noResults = document.getElementById('noResults');
+            
+            if (filtered.length > 0) {
+                container.innerHTML = filtered.map(char => `
+                    <a href="character-detail.html?id=${char.id}" class="character-card">
+                        <div class="character-image">
+                            <img src="${char.icon}" alt="${char.name_cn}" loading="lazy">
+                            <div class="character-rarity">${'★'.repeat(char.rarity)}</div>
+                        </div>
+                        <div class="character-info">
+                            <h3 class="character-name">${char.name_cn}</h3>
+                            <p class="character-name-jp">${char.name_jp}</p>
+                            <div class="character-tags">
+                                <span class="tag tag-type">${char.type}</span>
+                                <span class="tag tag-distance">${char.distance[0]}</span>
+                            </div>
+                            <div class="character-stats-mini">
+                                <span title="速度">速${char.stats.speed}</span>
+                                <span title="力量">力${char.stats.power}</span>
+                            </div>
+                        </div>
+                    </a>
+                `).join('');
+                noResults.style.display = 'none';
+            } else {
+                container.innerHTML = '';
+                noResults.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
