@@ -1,0 +1,166 @@
+{
+    "stats": {
+        "userCount": 12458,
+        "characterCount": 89,
+        "supportCount": 156,
+        "guideCount": 320
+    },
+    "tools": [
+        {
+            "id": "calculator",
+            "icon": "🧮",
+            "title": "育成计算器",
+            "description": "实时计算属性成长，规划最优路线",
+            "url": "#calculator"
+        },
+        {
+            "id": "deck-builder",
+            "icon": "🎴",
+            "title": "配卡推荐器",
+            "description": "根据目标自动推荐支援卡组合",
+            "url": "/tools/deck-builder"
+        },
+        {
+            "id": "skill-database",
+            "icon": "⚡",
+            "title": "技能数据库",
+            "description": "全技能效果查询与筛选",
+            "url": "/skills"
+        },
+        {
+            "id": "inherit-calculator",
+            "icon": "🧬",
+            "title": "因子继承计算",
+            "description": "计算蓝因子、红因子继承概率",
+            "url": "/tools/inherit-calculator"
+        }
+    ],
+    "guides": [
+        {
+            "id": 1,
+            "title": "新手入门完全指南",
+            "icon": "🏆",
+            "image": "",
+            "views": 15200,
+            "date": "2024-01-15",
+            "tags": ["新手", "基础"],
+            "excerpt": "从零开始，30分钟掌握赛马娘核心玩法，包含育成、竞技场、支援卡选择等完整流程讲解。"
+        },
+        {
+            "id": 2,
+            "title": "东海帝皇 URA 5星育成攻略",
+            "icon": "💎",
+            "image": "",
+            "views": 23800,
+            "date": "2024-01-14",
+            "tags": ["育成", "长距离", "逃马"],
+            "excerpt": "详细的回合规划、支援卡配置、技能选择，通关率95%以上的实战方案。"
+        },
+        {
+            "id": 3,
+            "title": "竞技场S级上分卡组推荐",
+            "icon": "🎯",
+            "image": "",
+            "views": 18500,
+            "date": "2024-01-13",
+            "tags": ["PVP", "竞技场", "配置"],
+            "excerpt": "2024最新赛季，三大主流配置详解，应对不同赛道的策略分析。"
+        },
+        {
+            "id": 4,
+            "title": "支援卡性价比排行榜",
+            "icon": "📊",
+            "image": "",
+            "views": 31200,
+            "date": "2024-01-12",
+            "tags": ["支援卡", "推荐", "评测"],
+            "excerpt": "数据分析156张支援卡，平民、小氪、大佬分级推荐，让你的每一分投入都物有所值。"
+        },
+        {
+            "id": 5,
+            "title": "技能继承机制深度解析",
+            "icon": "🧬",
+            "image": "",
+            "views": 12300,
+            "date": "2024-01-10",
+            "tags": ["机制", "技能", "继承"],
+            "excerpt": "完整解析技能继承概率、因子系统、白因子获取等核心机制。"
+        },
+        {
+            "id": 6,
+            "title": "黄金船 URA 疾风养成指南",
+            "icon": "⚡",
+            "image": "",
+            "views": 19600,
+            "date": "2024-01-08",
+            "tags": ["育成", "中距离", "差马"],
+            "excerpt": "针对黄金船特性的专属育成方案，稳定达成A+评价。"
+        }
+    ],
+    "news": [
+        {
+            "id": 1,
+            "title": "新角色「目白善信」实装预告",
+            "date": "2024-01-20",
+            "excerpt": "预计下周更新，长距离逃马，携带固有技能「白色闪电」"
+        },
+        {
+            "id": 2,
+            "title": "冬季竞技场赛季正式开启",
+            "date": "2024-01-18",
+            "excerpt": "全新赛季奖励，包含限定称号和SSR支援卡兑换券"
+        },
+        {
+            "id": 3,
+            "title": "限时活动「新春杯」开催中",
+            "date": "2024-01-15",
+            "excerpt": "完成指定任务即可获得丰厚奖励，包括SSR确定券"
+        },
+        {
+            "id": 4,
+            "title": "游戏系统优化更新公告",
+            "date": "2024-01-12",
+            "excerpt": "优化育成界面，新增快速跳过动画功能"
+        }
+    ],
+    "characters": [
+        {
+            "id": 1,
+            "name": "东海帝皇",
+            "type": "角色",
+            "tags": ["长距离", "逃马", "SSR"]
+        },
+        {
+            "id": 2,
+            "name": "黄金船",
+            "type": "角色",
+            "tags": ["中距离", "差马", "SSR"]
+        }
+    ],
+    "supports": [
+        {
+            "id": 1,
+            "name": "SSR 皇后支援卡",
+            "type": "支援卡",
+            "tags": ["速度", "友人"]
+        }
+    ],
+    "friendLinks": [
+        {
+            "name": "NGA论坛",
+            "url": "https://nga.178.com"
+        },
+        {
+            "name": "TapTap",
+            "url": "https://www.taptap.cn"
+        },
+        {
+            "name": "Bilibili",
+            "url": "https://www.bilibili.com"
+        },
+        {
+            "name": "GameWith(日本)",
+            "url": "https://gamewith.jp"
+        }
+    ]
+}
