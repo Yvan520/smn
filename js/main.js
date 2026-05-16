@@ -255,51 +255,54 @@ class Search {
             const response = await fetch(CONFIG.apiEndpoint);
             const data = await response.json();
             this.data = [
-                ...data.characters.map(c => ({ ...c, type: '角色' })),
-                ...data.supports.map(s => ({ ...s, type: '支援卡' })),
-                ...data.guides.map(g => ({ ...g, type: '攻略' }))
+                ...(data.characters || []).map(c => ({ ...c, type: '角色' })),
+                ...(data.supports || []).map(s => ({ ...s, type: '支援卡' })),
+                ...(data.guides || []).map(g => ({ ...g, type: '攻略' }))
             ];
         } catch (error) {
             Utils.handleError(error, '加载搜索数据');
-            // 使用本地备份数据
             this.data = this.getLocalSearchData();
         }
     }
 
     handleSearch(query) {
-        if (!query || query.length < 2) {
+        if (!query || query.length < 1) {
             this.hideSuggestions();
             return;
         }
 
-        const results = this.data.filter(item => 
-            item.name.toLowerCase().includes(query.toLowerCase()) ||
-            (item.tags && item.tags.some(tag => tag.includes(query)))
-        ).slice(0, 5);
+        const results = this.searchData(query);
+        this.showSuggestions(results.slice(0, 8));
+    }
 
-        this.showSuggestions(results);
+    searchData(query) {
+        const q = query.toLowerCase();
+        return this.data.filter(item => 
+            item.name.toLowerCase().includes(q) ||
+            (item.tags && item.tags.some(tag => tag.toLowerCase().includes(q)))
+        );
     }
 
     showSuggestions(results) {
-        if (!results.length) {
+        if (!results || !results.length) {
             this.hideSuggestions();
             return;
         }
 
         const html = results.map(item => `
-            <div class="suggestion-item" data-id="${item.id}" data-type="${item.type}">
+            <div class="suggestion-item" data-id="${item.id || ''}" data-type="${item.type || ''}">
                 <strong>${item.name}</strong>
-                <span style="color: #999; margin-left: 10px;">${item.type}</span>
+                <span style="color: #999; margin-left: 10px;">${item.type || ''}</span>
+                ${item.excerpt ? `<span style="color: #bbb; font-size: 0.85rem; margin-left: 8px;">${item.excerpt}</span>` : ''}
             </div>
         `).join('');
 
         this.suggestions.innerHTML = html;
         this.suggestions.style.display = 'block';
 
-        // 添加点击事件
         this.suggestions.querySelectorAll('.suggestion-item').forEach(item => {
             item.addEventListener('click', () => {
-                this.selectSuggestion(item.dataset.id, item.dataset.type);
+                this.performSearch(this.searchInput.value);
             });
         });
     }
@@ -310,25 +313,14 @@ class Search {
         }
     }
 
-    selectSuggestion(id, type) {
-        console.log(`选择了 ${type}: ${id}`);
-        // 跳转到详情页
-        window.location.href = `/${type.toLowerCase()}/${id}`;
-    }
-
     performSearch(query) {
-        if (!query.trim()) return;
-
-        console.log('执行搜索:', query);
-        // GA追踪
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'search', {
-                search_term: query
-            });
+        if (!query || !query.trim()) return;
+        const results = this.searchData(query);
+        if (results.length) {
+            this.showSuggestions(results);
+        } else {
+            this.showSuggestions([{ name: '未找到相关结果', type: '', excerpt: '试试其他关键词' }]);
         }
-
-        // 跳转到搜索结果页
-        window.location.href = `/search?q=${encodeURIComponent(query)}`;
     }
 
     getLocalSearchData() {
@@ -372,11 +364,11 @@ class ContentLoader {
         if (!this.toolsGrid || !tools) return;
 
         const html = tools.map(tool => `
-            <a href="${tool.url}" class="tool-card">
+            <div class="tool-card">
                 <div class="tool-icon">${tool.icon}</div>
                 <div class="tool-title">${tool.title}</div>
                 <div class="tool-desc">${tool.description}</div>
-            </a>
+            </div>
         `).join('');
 
         this.toolsGrid.innerHTML = html;
@@ -386,7 +378,7 @@ class ContentLoader {
         if (!this.guideGrid || !guides) return;
 
         const html = guides.map(guide => `
-            <a href="/guide/${guide.id}" class="guide-card">
+            <div class="guide-card">
                 <div class="guide-image">
                     ${guide.image ? `<img src="${guide.image}" alt="${guide.title}" loading="lazy">` : guide.icon || '📖'}
                 </div>
@@ -401,7 +393,7 @@ class ContentLoader {
                         ${guide.excerpt}
                     </div>
                 </div>
-            </a>
+            </div>
         `).join('');
 
         this.guideGrid.innerHTML = html;
@@ -413,7 +405,7 @@ class ContentLoader {
         const html = news.map(item => {
             const date = new Date(item.date);
             return `
-                <div class="news-item" onclick="window.location.href='/news/${item.id}'">
+                <div class="news-item">
                     <div class="news-date">
                         <div class="news-day">${date.getDate()}</div>
                         <div class="news-month">${date.getMonth() + 1}月</div>
@@ -442,16 +434,16 @@ class ContentLoader {
     updateStats(stats) {
         if (!stats) return;
 
-        const elements = {
-            userCount: document.getElementById('userCount'),
-            characterCount: document.getElementById('characterCount'),
-            supportCount: document.getElementById('supportCount'),
-            guideCount: document.getElementById('guideCount')
+        const mapping = {
+            userCount: 'characterCount',
+            supportCount: 'supportCount',
+            guideCount: 'guideCount'
         };
 
-        Object.keys(stats).forEach(key => {
-            if (elements[key]) {
-                this.animateNumber(elements[key], stats[key]);
+        Object.entries(mapping).forEach(([elId, dataKey]) => {
+            const el = document.getElementById(elId);
+            if (el && stats[dataKey] !== undefined) {
+                this.animateNumber(el, stats[dataKey]);
             }
         });
     }
@@ -481,9 +473,9 @@ class ContentLoader {
         const localData = {
             tools: [
                 { icon: '🧮', title: '育成计算器', description: '实时计算属性成长', url: '#calculator' },
-                { icon: '🎴', title: '配卡推荐器', description: '智能推荐支援卡组合', url: '/tools/deck-builder' },
-                { icon: '⚡', title: '技能数据库', description: '全技能效果查询', url: '/skills' },
-                { icon: '🧬', title: '因子计算', description: '继承概率计算', url: '/tools/inherit-calculator' }
+                { icon: '🎴', title: '配卡推荐器', description: '智能推荐支援卡组合', url: '#calculator' },
+                { icon: '⚡', title: '技能数据库', description: '全技能效果查询', url: '#guides' },
+                { icon: '🧬', title: '因子计算', description: '继承概率计算', url: '#calculator' }
             ],
             guides: [
                 { 
@@ -534,7 +526,6 @@ class ContentLoader {
                 { name: 'Bilibili', url: 'https://www.bilibili.com' }
             ],
             stats: {
-                userCount: 12458,
                 characterCount: 89,
                 supportCount: 156,
                 guideCount: 320

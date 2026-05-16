@@ -1,9 +1,8 @@
 {
     "stats": {
-        "userCount": 12458,
-        "characterCount": 89,
-        "supportCount": 156,
-        "guideCount": 320
+        "characterCount": 46,
+        "supportCount": 128,
+        "guideCount": 16
     },
     "tools": [
         {
@@ -18,21 +17,21 @@
             "icon": "🎴",
             "title": "配卡推荐器",
             "description": "根据目标自动推荐支援卡组合",
-            "url": "/tools/deck-builder"
+            "url": "#calculator"
         },
         {
             "id": "skill-database",
             "icon": "⚡",
             "title": "技能数据库",
             "description": "全技能效果查询与筛选",
-            "url": "/skills"
+            "url": "#guides"
         },
         {
             "id": "inherit-calculator",
             "icon": "🧬",
             "title": "因子继承计算",
             "description": "计算蓝因子、红因子继承概率",
-            "url": "/tools/inherit-calculator"
+            "url": "#calculator"
         }
     ],
     "guides": [
@@ -74,7 +73,7 @@
             "views": 31200,
             "date": "2024-01-12",
             "tags": ["支援卡", "推荐", "评测"],
-            "excerpt": "数据分析156张支援卡，平民、小氪、大佬分级推荐，让你的每一分投入都物有所值。"
+            "excerpt": "数据分析156张支援卡，平民、小氪、大佬分级推荐。"
         },
         {
             "id": 5,
@@ -95,6 +94,26 @@
             "date": "2024-01-08",
             "tags": ["育成", "中距离", "差马"],
             "excerpt": "针对黄金船特性的专属育成方案，稳定达成A+评价。"
+        },
+        {
+            "id": 7,
+            "title": "青春杯剧本完全攻略",
+            "icon": "🏫",
+            "image": "",
+            "views": 28100,
+            "date": "2024-01-05",
+            "tags": ["剧本", "青春杯", "育成"],
+            "excerpt": "青春杯全事件选项、训练组合、Boss战对策一网打尽。"
+        },
+        {
+            "id": 8,
+            "title": "巅峰杯 赛程规划与配卡思路",
+            "icon": "🏆",
+            "image": "",
+            "views": 15700,
+            "date": "2023-12-28",
+            "tags": ["巅峰杯", "赛程", "高级"],
+            "excerpt": "巅峰杯高评分育成路线，粉丝数最大化与属性兼顾的配卡方案。"
         }
     ],
     "news": [
@@ -121,46 +140,98 @@
             "title": "游戏系统优化更新公告",
             "date": "2024-01-12",
             "excerpt": "优化育成界面，新增快速跳过动画功能"
+        },
+        {
+            "id": 5,
+            "title": "新支援卡「万圣节特别周」卡池预告",
+            "date": "2024-01-08",
+            "excerpt": "限定SSR速度卡，持有技能「弧线のプロフェッサー」"
         }
     ],
     "characters": [
-        {
-            "id": 1,
-            "name": "东海帝皇",
-            "type": "角色",
-            "tags": ["长距离", "逃马", "SSR"]
-        },
-        {
-            "id": 2,
-            "name": "黄金船",
-            "type": "角色",
-            "tags": ["中距离", "差马", "SSR"]
-        }
+        { "id": 1, "name": "特别周", "type": "角色", "tags": ["先行", "中距离", "SR"] },
+        { "id": 2, "name": "无声铃鹿", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
+        { "id": 3, "name": "东海帝皇", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
+        { "id": 4, "name": "丸善斯基", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
+        { "id": 5, "name": "黄金船", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
+        { "id": 6, "name": "伏特加", "type": "角色", "tags": ["先行", "英里", "SSR"] },
+        { "id": 7, "name": "大和赤骥", "type": "角色", "tags": ["逃马", "英里", "SSR"] },
+        { "id": 8, "name": "大树快车", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
+        { "id": 9, "name": "草上飞", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
+        { "id": 10, "name": "菱亚马逊", "type": "角色", "tags": ["先行", "中距离", "SR"] },
+        { "id": 11, "name": "目白麦昆", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
+        { "id": 12, "name": "米浴", "type": "角色", "tags": ["差马", "长距离", "SR"] },
+        { "id": 13, "name": "美浦波旁", "type": "角色", "tags": ["逃马", "中距离", "SSR"] },
+        { "id": 14, "name": "真机伶", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
+        { "id": 15, "name": "青竹回忆", "type": "角色", "tags": ["差马", "短距离", "SR"] },
+        { "id": 16, "name": "樱花进王", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
+        { "id": 17, "name": "小栗帽", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
+        { "id": 18, "name": "超级小溪", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
+        { "id": 19, "name": "玉藻十字", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
+        { "id": 20, "name": "稻荷一号", "type": "角色", "tags": ["先行", "中距离", "SR"] },
+        { "id": 21, "name": "鲁道夫象征", "type": "角色", "tags": ["先行", "长距离", "SSR"] },
+        { "id": 22, "name": "气槽", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
+        { "id": 23, "name": "爱丽数码", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
+        { "id": 24, "name": "星云天空", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
+        { "id": 25, "name": "神鹰", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
+        { "id": 26, "name": "好歌剧", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
+        { "id": 27, "name": "成田白仁", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
+        { "id": 28, "name": "琵琶晨光", "type": "角色", "tags": ["先行", "长距离", "SR"] },
+        { "id": 29, "name": "重炮", "type": "角色", "tags": ["先行", "中距离", "SR"] },
+        { "id": 30, "name": "目白赖安", "type": "角色", "tags": ["逃马", "长距离", "SR"] },
+        { "id": 31, "name": "胜利奖券", "type": "角色", "tags": ["先行", "中距离", "SR"] },
+        { "id": 32, "name": "青酱", "type": "角色", "tags": ["差马", "中距离", "SR"] },
+        { "id": 33, "name": "双涡轮", "type": "角色", "tags": ["逃马", "短距离", "R"] },
+        { "id": 34, "name": "暴君", "type": "角色", "tags": ["差马", "中距离", "R"] },
+        { "id": 35, "name": "铃鹿", "type": "角色", "tags": ["逃马", "长距离", "R"] },
+        { "id": 36, "name": "黑船", "type": "角色", "tags": ["差马", "中距离", "R"] },
+        { "id": 37, "name": "名将怒涛", "type": "角色", "tags": ["先行", "中距离", "SR"] },
+        { "id": 38, "name": "荣进闪耀", "type": "角色", "tags": ["先行", "英里", "SR"] },
+        { "id": 39, "name": "东瀛佐敦", "type": "角色", "tags": ["差马", "英里", "SR"] },
+        { "id": 40, "name": "咖啡", "type": "角色", "tags": ["差马", "中距离", "SR"] },
+        { "id": 41, "name": "中山庆典", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
+        { "id": 42, "name": "美妙姿势", "type": "角色", "tags": ["逃马", "英里", "SSR"] },
+        { "id": 43, "name": "北部玄驹", "type": "角色", "tags": ["先行", "长距离", "SSR"] },
+        { "id": 44, "name": "里见光钻", "type": "角色", "tags": ["先行", "长距离", "SSR"] },
+        { "id": 45, "name": "高尚骏逸", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
+        { "id": 46, "name": "菜伯", "type": "角色", "tags": ["先行", "中距离", "SR"] }
     ],
     "supports": [
-        {
-            "id": 1,
-            "name": "SSR 皇后支援卡",
-            "type": "支援卡",
-            "tags": ["速度", "友人"]
-        }
+        { "id": 1, "name": "SSR 速子", "type": "支援卡", "tags": ["速度", "SSR"] },
+        { "id": 2, "name": "SSR 黄金船", "type": "支援卡", "tags": ["速度", "SSR"] },
+        { "id": 3, "name": "SSR 小栗帽", "type": "支援卡", "tags": ["速度", "SSR"] },
+        { "id": 4, "name": "SSR 神鹰", "type": "支援卡", "tags": ["速度", "SSR"] },
+        { "id": 5, "name": "SSR 樱花进王", "type": "支援卡", "tags": ["速度", "SSR"] },
+        { "id": 6, "name": "SSR 铃鹿", "type": "支援卡", "tags": ["速度", "SSR"] },
+        { "id": 7, "name": "SSR 亚马逊", "type": "支援卡", "tags": ["耐力", "SSR"] },
+        { "id": 8, "name": "SSR 超级小溪", "type": "支援卡", "tags": ["耐力", "SSR"] },
+        { "id": 9, "name": "SR 绿帽", "type": "支援卡", "tags": ["耐力", "SR"] },
+        { "id": 10, "name": "SR 米浴", "type": "支援卡", "tags": ["耐力", "SR"] },
+        { "id": 11, "name": "SSR 伏特加", "type": "支援卡", "tags": ["力量", "SSR"] },
+        { "id": 12, "name": "SSR 气槽", "type": "支援卡", "tags": ["力量", "SSR"] },
+        { "id": 13, "name": "SSR 重炮", "type": "支援卡", "tags": ["力量", "SSR"] },
+        { "id": 14, "name": "SR 东瀛佐敦", "type": "支援卡", "tags": ["力量", "SR"] },
+        { "id": 15, "name": "SSR 青竹回忆", "type": "支援卡", "tags": ["毅力", "SSR"] },
+        { "id": 16, "name": "SSR 好歌剧", "type": "支援卡", "tags": ["毅力", "SSR"] },
+        { "id": 17, "name": "SSR 名将怒涛", "type": "支援卡", "tags": ["毅力", "SSR"] },
+        { "id": 18, "name": "SSR 鲁道夫象征", "type": "支援卡", "tags": ["智力", "SSR"] },
+        { "id": 19, "name": "SSR 美妙姿势", "type": "支援卡", "tags": ["智力", "SSR"] },
+        { "id": 20, "name": "SSR 内恰", "type": "支援卡", "tags": ["智力", "SSR"] },
+        { "id": 21, "name": "SR 小说家", "type": "支援卡", "tags": ["智力", "SR"] },
+        { "id": 22, "name": "SR 荣进闪耀", "type": "支援卡", "tags": ["智力", "SR"] },
+        { "id": 23, "name": "SSR 友人·桐生院", "type": "支援卡", "tags": ["友人", "SSR"] },
+        { "id": 24, "name": "SSR 友人·葵", "type": "支援卡", "tags": ["友人", "SSR"] },
+        { "id": 25, "name": "SR 友人·凉花", "type": "支援卡", "tags": ["友人", "SR"] },
+        { "id": 26, "name": "SSR 美丽周日", "type": "支援卡", "tags": ["速度", "SSR"] },
+        { "id": 27, "name": "SSR 川上公主", "type": "支援卡", "tags": ["耐力", "SSR"] },
+        { "id": 28, "name": "SSR 天狼星", "type": "支援卡", "tags": ["力量", "SSR"] },
+        { "id": 29, "name": "SSR 青酱", "type": "支援卡", "tags": ["速度", "SSR"] },
+        { "id": 30, "name": "SSR 双涡轮", "type": "支援卡", "tags": ["毅力", "SSR"] }
     ],
     "friendLinks": [
-        {
-            "name": "NGA论坛",
-            "url": "https://nga.178.com"
-        },
-        {
-            "name": "TapTap",
-            "url": "https://www.taptap.cn"
-        },
-        {
-            "name": "Bilibili",
-            "url": "https://www.bilibili.com"
-        },
-        {
-            "name": "GameWith(日本)",
-            "url": "https://gamewith.jp"
-        }
+        { "name": "NGA赛马娘版", "url": "https://nga.178.com/thread.php?fid=784" },
+        { "name": "GameWith(日本)", "url": "https://gamewith.jp/uma-musume/" },
+        { "name": "Kamigame(日本)", "url": "https://kamigame.jp/uma-musume/" },
+        { "name": "Bilibili Wiki", "url": "https://wiki.biligame.com/umamusume/" }
     ]
 }

@@ -5,581 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>赛马娘攻略站 - 育成攻略·支援卡·技能数据库</title>
     <meta name="description" content="最全面的赛马娘Pretty Derby中文攻略站，提供育成攻略、支援卡推荐、技能数据库等">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #ff69b4;
-            --primary-dark: #e64a8d;
-            --secondary: #87ceeb;
-            --dark: #2c3e50;
-            --gray: #7f8c8d;
-            --light-gray: #ecf0f1;
-            --white: #ffffff;
-            --success: #2ecc71;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
-            line-height: 1.6;
-            color: var(--dark);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-attachment: fixed;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        /* 加载动画 */
-        .page-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s;
-        }
-
-        .page-loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--light-gray);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* 导航栏 */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 1.5rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-link {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .mobile-menu-btn span {
-            width: 25px;
-            height: 3px;
-            background: var(--dark);
-            transition: 0.3s;
-        }
-
-        /* 搜索区 */
-        .search-section {
-            padding: 2rem 0;
-        }
-
-        .search-wrapper {
-            display: flex;
-            gap: 1rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 1rem 1.5rem;
-            font-size: 1rem;
-            border: none;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .search-btn {
-            padding: 1rem 2rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s;
-        }
-
-        .search-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* 主内容 */
-        .main-content {
-            padding: 2rem 0;
-        }
-
-        .stats-bar {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 3rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-            font-family: monospace;
-        }
-
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-
-        /* 广告位 */
-        .ad-container {
-            background: var(--light-gray);
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 3rem 0;
-            text-align: center;
-        }
-
-        .ad-label {
-            font-size: 0.75rem;
-            color: var(--gray);
-            margin-bottom: 0.5rem;
-        }
-
-        .ad-placeholder {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            border: 2px dashed var(--gray);
-            color: var(--gray);
-        }
-
-        /* 区块标题 */
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .section-desc {
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 1.5rem;
-        }
-
-        /* 工具卡片 */
-        .tools-section {
-            margin-bottom: 3rem;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .tool-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--dark);
-        }
-
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-
-        .tool-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .tool-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .tool-desc {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        /* 攻略卡片 */
-        .guides-section {
-            margin-bottom: 3rem;
-        }
-
-        .guide-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .guide-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .guide-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .guide-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-        }
-
-        .guide-content {
-            padding: 1.5rem;
-        }
-
-        .guide-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .guide-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-
-        .guide-excerpt {
-            color: var(--gray);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .tag {
-            display: inline-block;
-            background: var(--secondary);
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-right: 0.5rem;
-        }
-
-        /* 计算器 */
-        .calculator-section {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 3rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .calculator-wrapper {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-
-        .stat-inputs {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .stat-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .stat-input-group label {
-            font-weight: bold;
-            color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .stat-input-group input[type="number"] {
-            padding: 0.75rem;
-            border: 2px solid var(--light-gray);
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .stat-input-group input[type="number"]:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .stat-slider {
-            width: 100%;
-            height: 6px;
-            border-radius: 8px;
-            background: var(--light-gray);
-            outline: none;
-        }
-
-        .calculator-result {
-            background: var(--light-gray);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .score-label {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 0.5rem;
-        }
-
-        .score-value {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--primary);
-            font-family: monospace;
-            margin-bottom: 1rem;
-        }
-
-        .rating-stars {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .rating-text {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        .result-suggestion {
-            color: var(--gray);
-            line-height: 1.5;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* 页脚 */
-        .footer {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 3rem 0 1rem;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding-top: 1rem;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.9rem;
-        }
-
-        /* 返回顶部 */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-        }
-
-        .back-to-top:hover {
-            background: var(--primary-dark);
-            transform: translateY(-3px);
-        }
-
-        /* 动画 */
-        .fade-in {
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* 响应式 */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            .calculator-wrapper {
-                grid-template-columns: 1fr;
-            }
-
-            .stat-inputs {
-                grid-template-columns: 1fr;
-            }
-
-            .search-wrapper {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- 加载动画 -->
@@ -595,13 +21,13 @@
                 <span>🏇</span>
                 <span>赛马娘攻略站</span>
             </div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#home" class="nav-link active">首页</a></li>
                 <li><a href="#tools" class="nav-link">工具箱</a></li>
                 <li><a href="#guides" class="nav-link">攻略中心</a></li>
                 <li><a href="#calculator" class="nav-link">计算器</a></li>
             </ul>
-            <button class="mobile-menu-btn">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -613,12 +39,13 @@
     <section class="search-section">
         <div class="container">
             <div class="search-wrapper">
-                <input type="search" class="search-input" placeholder="搜索马娘、技能、支援卡...">
-                <button class="search-btn">
+                <input type="search" class="search-input" id="searchInput" placeholder="搜索马娘、技能、支援卡..." autocomplete="off">
+                <button class="search-btn" id="searchBtn">
                     <span>🔍</span>
                     <span>搜索</span>
                 </button>
             </div>
+            <div class="search-suggestions" id="searchSuggestions" style="display:none;"></div>
         </div>
     </section>
 
@@ -629,19 +56,15 @@
             <!-- 统计面板 -->
             <section class="stats-bar fade-in">
                 <div class="stat-item">
-                    <div class="stat-number">12,458</div>
-                    <div class="stat-label">活跃用户</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">89</div>
+                    <div class="stat-number" id="userCount">0</div>
                     <div class="stat-label">马娘角色</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">156</div>
+                    <div class="stat-number" id="supportCount">0</div>
                     <div class="stat-label">支援卡</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">320+</div>
+                    <div class="stat-number" id="guideCount">0</div>
                     <div class="stat-label">攻略文章</div>
                 </div>
             </section>
@@ -661,28 +84,7 @@
                     <span>⚡</span>
                     快捷工具
                 </h2>
-                <div class="tools-grid">
-                    <a href="#calculator" class="tool-card">
-                        <div class="tool-icon">🧮</div>
-                        <div class="tool-title">育成计算器</div>
-                        <div class="tool-desc">实时计算属性成长，规划最优路线</div>
-                    </a>
-                    <div class="tool-card">
-                        <div class="tool-icon">🎴</div>
-                        <div class="tool-title">配卡推荐器</div>
-                        <div class="tool-desc">根据目标自动推荐支援卡组合</div>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">⚡</div>
-                        <div class="tool-title">技能数据库</div>
-                        <div class="tool-desc">全技能效果查询与筛选</div>
-                    </div>
-                    <div class="tool-card">
-                        <div class="tool-icon">🧬</div>
-                        <div class="tool-title">因子继承计算</div>
-                        <div class="tool-desc">计算蓝因子、红因子继承概率</div>
-                    </div>
-                </div>
+                <div class="tools-grid" id="toolsGrid"></div>
             </section>
 
             <!-- 热门攻略 -->
@@ -691,68 +93,16 @@
                     <span>🔥</span>
                     热门攻略
                 </h2>
-                <div class="guide-grid">
-                    <div class="guide-card">
-                        <div class="guide-image">🏆</div>
-                        <div class="guide-content">
-                            <div class="guide-title">新手入门完全指南</div>
-                            <div class="guide-meta">
-                                <span>👁️ 15.2k</span>
-                                <span>⏱️ 2024-01-15</span>
-                            </div>
-                            <div class="guide-excerpt">
-                                <span class="tag">新手</span>
-                                从零开始，30分钟掌握赛马娘核心玩法...
-                            </div>
-                        </div>
-                    </div>
+                <div class="guide-grid" id="guideGrid"></div>
+            </section>
 
-                    <div class="guide-card">
-                        <div class="guide-image">💎</div>
-                        <div class="guide-content">
-                            <div class="guide-title">东海帝皇 URA 5星育成攻略</div>
-                            <div class="guide-meta">
-                                <span>👁️ 23.8k</span>
-                                <span>⏱️ 2024-01-14</span>
-                            </div>
-                            <div class="guide-excerpt">
-                                <span class="tag">育成</span>
-                                <span class="tag">长距离</span>
-                                详细的回合规划、支援卡配置...
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="guide-card">
-                        <div class="guide-image">🎯</div>
-                        <div class="guide-content">
-                            <div class="guide-title">竞技场S级上分卡组推荐</div>
-                            <div class="guide-meta">
-                                <span>👁️ 18.5k</span>
-                                <span>⏱️ 2024-01-13</span>
-                            </div>
-                            <div class="guide-excerpt">
-                                <span class="tag">PVP</span>
-                                2024最新赛季配置详解...
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="guide-card">
-                        <div class="guide-image">📊</div>
-                        <div class="guide-content">
-                            <div class="guide-title">支援卡性价比排行榜</div>
-                            <div class="guide-meta">
-                                <span>👁️ 31.2k</span>
-                                <span>⏱️ 2024-01-12</span>
-                            </div>
-                            <div class="guide-excerpt">
-                                <span class="tag">支援卡</span>
-                                数据分析156张支援卡...
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- 最新动态 -->
+            <section class="news-section fade-in">
+                <h2 class="section-title">
+                    <span>📰</span>
+                    最新动态
+                </h2>
+                <div class="news-list" id="newsList"></div>
             </section>
 
             <!-- 育成计算器 -->
@@ -814,16 +164,16 @@
                     <div class="calculator-result">
                         <div class="result-score">
                             <div class="score-label">综合评分</div>
-                            <div class="score-value" id="totalScore">3250</div>
+                            <div class="score-value" id="totalScore">0</div>
                         </div>
-                        <div class="result-rating">
-                            <div class="rating-stars">⭐⭐⭐⭐</div>
-                            <div class="rating-text">A级评价</div>
+                        <div class="result-rating" id="ratingDisplay">
+                            <div class="rating-stars"></div>
+                            <div class="rating-text"></div>
                         </div>
                         <div class="result-suggestion" id="suggestionText">
-                            建议继续提升速度和智力属性
+                            输入属性值开始计算
                         </div>
-                        <button class="btn-primary">保存配置</button>
+                        <button class="btn-primary" id="saveStatsBtn">保存配置</button>
                     </div>
                 </div>
             </section>
@@ -841,7 +191,7 @@
                 </div>
                 <div class="footer-section">
                     <h3>快捷链接</h3>
-                    <ul>
+                    <ul id="friendLinks">
                         <li><a href="#tools">工具箱</a></li>
                         <li><a href="#guides">攻略中心</a></li>
                     </ul>
@@ -853,76 +203,19 @@
         </div>
     </footer>
 
+    <!-- Cookie 同意提示 -->
+    <div id="cookieConsent" class="cookie-consent" style="display:none;">
+        <p>本站使用 Cookie 来提升用户体验。继续使用即表示同意 <a href="#">隐私政策</a></p>
+        <button id="acceptCookies" class="btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">同意</button>
+    </div>
+
     <!-- 返回顶部 -->
     <button id="backToTop" class="back-to-top" style="display: none;">↑</button>
 
+    <script src="js/main.js"></script>
     <script>
-        // 页面加载
         window.addEventListener('load', function() {
             document.getElementById('pageLoader').classList.add('hidden');
-        });
-
-        // 计算器功能
-        const stats = {
-            speed: { input: document.getElementById('speed'), slider: document.getElementById('speedRange') },
-            stamina: { input: document.getElementById('stamina'), slider: document.getElementById('staminaRange') },
-            power: { input: document.getElementById('power'), slider: document.getElementById('powerRange') },
-            guts: { input: document.getElementById('guts'), slider: document.getElementById('gutsRange') },
-            intelligence: { input: document.getElementById('intelligence'), slider: document.getElementById('intelligenceRange') }
-        };
-
-        function syncInputs(stat) {
-            stat.slider.value = stat.input.value;
-            stat.input.value = stat.slider.value;
-            calculate();
-        }
-
-        Object.values(stats).forEach(stat => {
-            stat.input.addEventListener('input', () => syncInputs(stat));
-            stat.slider.addEventListener('input', () => syncInputs(stat));
-        });
-
-        function calculate() {
-            const total = Object.values(stats).reduce((sum, stat) => 
-                sum + parseInt(stat.input.value), 0);
-            
-            document.getElementById('totalScore').textContent = total;
-            
-            const suggestion = document.getElementById('suggestionText');
-            if (total >= 5000) {
-                suggestion.textContent = '完美的属性配置！';
-            } else if (total >= 4000) {
-                suggestion.textContent = '优秀的育成，可挑战高难度赛事';
-            } else if (total >= 3000) {
-                suggestion.textContent = '建议继续提升速度和智力属性';
-            } else {
-                suggestion.textContent = '还在成长期，继续加油！';
-            }
-        }
-
-        // 返回顶部
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                backToTop.style.display = 'block';
-            } else {
-                backToTop.style.display = 'none';
-            }
-        });
-
-        backToTop.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
         });
     </script>
 </body>
