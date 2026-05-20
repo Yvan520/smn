@@ -368,7 +368,7 @@ try{var s=JSON.parse(localStorage.getItem('uma_calc')||'{}');if(typeof s.sp!=='u
 
 $('mb').onclick=function(){this.classList.toggle('act');$('nv').classList.toggle('open')};
 var nva=$('nv').querySelectorAll('a');
-for(var i=0;i<nva.length;i++){nva[i].onclick=function(e){var h=this.getAttribute('href');if(h.charAt(0)==='#'){e.preventDefault();$(h.substring(1)).scrollIntoView({behavior:'smooth'})$('nv').classList.remove('open');$('mb').classList.remove('act');for(var j=0;j<nva.length;j++)nva[j].classList.remove('act');this.classList.add('act')}}}
+for(var i=0;i<nva.length;i++){nva[i].onclick=function(e){var h=this.getAttribute('href');if(h.charAt(0)==='#'){e.preventDefault();$(h.substring(1)).scrollIntoView({behavior:'smooth'});$('nv').classList.remove('open');$('mb').classList.remove('act');for(var j=0;j<nva.length;j++)nva[j].classList.remove('act');this.classList.add('act')}}}
 var tb=$('tb');window.onscroll=function(){tb.style.display=window.scrollY>200?'block':'none'};tb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})};
 function T(m){var t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;top:60px;right:14px;background:var(--nav);color:var(--gold);padding:6px 14px;border-radius:5px;font-weight:600;z-index:9999;font-size:.72rem;box-shadow:0 4px 16px rgba(0,0,0,.2)';document.body.appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(function(){t.remove()},300)},1400)}
 
