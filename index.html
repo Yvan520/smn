@@ -716,7 +716,10 @@ C={
         { "name": "繁中服攻略站", "url": "https://uma.gamertb.com/" },
         { "name": "官方繁中站", "url": "https://uma.komoejoy.com/" }
     ]
-};C.chars=C.characters||C.chars;C.supps=C.supports||C.supps;C.fl=C.friendLinks||C.fl;try{render()}catch(e){}
+};C.chars=C.characters||C.chars;C.supps=C.supports||C.supps;C.fl=C.friendLinks||C.fl;
+if(C.guides){for(var _i=0;_i<C.guides.length;_i++){var _g=C.guides[_i];_g.i=_g.i||_g.icon;_g.t=_g.t||_g.title;_g.e=_g.e||_g.excerpt;_g.v=_g.v||_g.views;_g.dt=_g.dt||_g.date;_g.ta=_g.ta||_g.tags}}
+if(C.tools){for(var _i=0;_i<C.tools.length;_i++){var _t=C.tools[_i];_t.i=_t.i||_t.icon;_t.t=_t.t||_t.title;_t.d=_t.d||_t.description}}
+try{render()}catch(e){}
 })();
 </script>
 </body>
