@@ -372,13 +372,13 @@ for(var i=0;i<nva.length;i++){nva[i].onclick=function(e){var h=this.getAttribute
 var tb=$('tb');window.onscroll=function(){tb.style.display=window.scrollY>200?'block':'none'};tb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})};
 function T(m){var t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;top:60px;right:14px;background:var(--nav);color:var(--gold);padding:6px 14px;border-radius:5px;font-weight:600;z-index:9999;font-size:.72rem;box-shadow:0 4px 16px rgba(0,0,0,.2)';document.body.appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(function(){t.remove()},300)},1400)}
 
+C=F;try{render()}catch(e){}
+$('ld').classList.add('h')
 var x=new XMLHttpRequest();
 x.open('GET','data/content.json',true);
-x.onload=function(){try{if(x.status===200)C=JSON.parse(x.responseText);else C=F}catch(e){C=F}go()};
-x.onerror=function(){C=F;go()};
+x.onload=function(){try{if(x.status===200)C=JSON.parse(x.responseText);else C=F}catch(e){C=F}try{render()}catch(e){}};
+x.onerror=function(){};
 x.send();
-function go(){try{render()}catch(e){C=F;try{render()}catch(e2){}};$('ld').classList.add('h')}
-setTimeout(function(){if($('ld')&&!$('ld').classList.contains('h')){C=F;try{render()}catch(e){};$('ld').classList.add('h')}},3000);
 })();
 </script>
 </body>
