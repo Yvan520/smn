@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://yvan520.github.io/smn/sitemap.xml
