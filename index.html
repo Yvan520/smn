@@ -1,734 +1,1899 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>赛马娘攻略站</title>
-<meta name="description" content="赛马娘Pretty Derby中文攻略站">
-<style>
-:root{
---bg:#f6f3f0;--cd:#fff;--bd:#e4ddd5;--tx:#1c1612;--mt:#8d827a;
---nv:#181310;--gd:#c4882a;--ac:#222;
---g1:#d4565a;--g2:#e8a838;--g3:#5ba85a;--g4:#4a8fc4;--g5:#8a6ab8;
---r:10px;--s:0 2px 6px rgba(0,0,0,.05);--f:-apple-system,BlinkMacSystemFont,'Segoe UI','Hiragino Sans','Microsoft YaHei',sans-serif;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{font-size:15px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-body{font-family:var(--f);background:var(--bg);color:var(--tx);line-height:1.6}
-
-/* NAV */
-.hd{background:var(--nv);position:sticky;top:0;z-index:100}
-.hi{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:50px;padding:0 20px}
-.hl{display:flex;align-items:center;gap:8px;color:#e8ddd0;font-size:.9rem;font-weight:700;text-decoration:none}
-.hl i{width:26px;height:26px;background:var(--gd);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:var(--nv);flex-shrink:0}
-.nm{display:flex;gap:2px;list-style:none}
-.nm a{padding:5px 10px;color:rgba(232,221,208,.4);font-size:.7rem;border-radius:5px;transition:.12s;text-decoration:none}
-.nm a:hover{color:#e8ddd0;background:rgba(232,221,208,.06)}
-.mb{display:none;flex-direction:column;gap:3px;background:none;border:none;cursor:pointer;padding:5px}
-.mb span{width:17px;height:2px;background:var(--gd);border-radius:2px}
-
-/* HERO */
-.he{background:var(--nv);padding:56px 20px 48px;text-align:center}
-.he h1{font-size:2rem;font-weight:800;color:#e8ddd0;margin-bottom:3px}
-.he h1 u{font-style:normal;color:var(--gd)}
-.he p{font-size:.82rem;color:rgba(232,221,208,.3);margin-bottom:18px}
-.sb{display:flex;max-width:400px;margin:0 auto;gap:6px;position:relative}
-.sb input{flex:1;padding:9px 14px;border-radius:7px;border:1px solid rgba(232,221,208,.08);background:rgba(232,221,208,.04);color:#e8ddd0;font-size:.8rem;outline:none;font-family:var(--f)}
-.sb input::placeholder{color:rgba(232,221,208,.2)}
-.sb input:focus{border-color:rgba(196,136,42,.4)}
-.sb button{padding:9px 18px;border-radius:7px;border:none;background:var(--gd);color:var(--nv);font-weight:600;cursor:pointer;font-size:.76rem;font-family:var(--f)}
-#sr{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:var(--cd);border-radius:var(--r);display:none;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.3);text-align:left;z-index:50}
-.sr-i{padding:7px 12px;cursor:pointer;font-size:.78rem;border-bottom:1px solid var(--bd);color:var(--tx);display:flex;align-items:center;gap:5px}
-.sr-i:last-child{border-bottom:none}
-.sr-i:hover{background:#f8f6f2}
-.sr-i b{background:#fef0d6;color:#a06810;padding:0 5px;border-radius:3px;font-size:.56rem;font-weight:600;flex-shrink:0}
-
-/* MAIN */
-.w{max-width:1100px;margin:0 auto;padding:0 20px}
-.sec{padding:36px 0}
-.sec:first-of-type{padding-top:0}
-.sh{font-size:.95rem;font-weight:700;margin-bottom:16px;color:var(--nv);display:flex;align-items:center;gap:8px}
-.sh i{width:3px;height:15px;background:var(--gd);border-radius:2px;flex-shrink:0}
-.sh span{color:var(--mt);font-size:.68rem;font-weight:400;margin-left:2px}
-
-/* GUIDES - editorial list */
-.fg{display:flex;flex-direction:column;gap:6px}
-.fc{background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;transition:.15s;cursor:pointer;display:flex;gap:12px;box-shadow:var(--s)}
-.fc:hover{border-color:#d0c5ba}
-.fc .fl{width:36px;height:36px;border-radius:50%;background:#f0ece8;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;margin-top:1px}
-.fc .fr{flex:1}
-.fc .fr .gt{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:3px}
-.gb{font-size:.54rem;font-weight:500;padding:1px 7px;border-radius:4px;background:#efedeb;color:#5a5048}
-.fc .fr h3{font-size:.86rem;font-weight:600;color:var(--tx);margin-bottom:1px}
-.fc .fr .mv{font-size:.66rem;color:var(--mt)}
-.fc .fr .ex{font-size:.7rem;color:var(--mt);line-height:1.4}
-
-/* TOOLS - app icons */
-.tl{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:6px}
-.tc{background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:14px;text-align:center;cursor:pointer;transition:.15s;box-shadow:var(--s)}
-.tc:hover{border-color:#d0c5ba;transform:translateY(-1px)}
-.tc .i{margin-bottom:6px}
-.tc .i b{display:inline-block;width:38px;height:38px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem}
-.tc .ti{font-size:.78rem;font-weight:600;color:var(--tx);margin-bottom:1px}
-.tc .ds{font-size:.66rem;color:var(--mt)}
-
-/* NEWS */
-.nl{display:flex;flex-direction:column;gap:5px}
-.ni{background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:10px 14px;display:flex;gap:10px;transition:.1s;box-shadow:var(--s)}
-.ni:hover{border-color:#d0c5ba}
-.nd{flex-shrink:0;text-align:center;background:var(--nv);color:var(--gd);border-radius:7px;padding:3px 8px;min-width:36px}
-.nd .d{font-size:.8rem;font-weight:700;line-height:1.1}
-.nd .m{font-size:.48rem;opacity:.6}
-.ni h4{font-size:.78rem;font-weight:600;color:var(--tx);margin-bottom:1px}
-.ni p{font-size:.68rem;color:var(--mt)}
-
-/* FILTERS */
-.fb{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:10px}
-.fb button{padding:3px 9px;border-radius:12px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font-size:.64rem;cursor:pointer;font-family:var(--f);transition:.1s}
-.fb button.on{background:var(--nv);color:#e8ddd0;border-color:var(--nv)}
-
-/* CHARACTERS - clean cards, no bars */
-.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px}
-.cc{background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:10px 6px;text-align:center;cursor:pointer;transition:.15s;box-shadow:var(--s)}
-.cc:hover{border-color:#d0c5ba;transform:translateY(-1px)}
-.cc .nm{font-size:.72rem;font-weight:600;color:var(--tx);margin-bottom:1px}
-.cc .jp{font-size:.52rem;color:var(--mt);margin-bottom:5px}
-.cc .tg b{font-size:.5rem;font-weight:600;padding:1px 6px;border-radius:5px;display:inline-block;line-height:1.3}
-.cc .tg .bt{padding:1px 6px;border-radius:5px;font-size:.5rem;font-weight:600;display:inline-block;line-height:1.3}
-.ac{display:flex;gap:2px;justify-content:center;flex-wrap:wrap}
-.ac b{width:10px;height:10px;border-radius:3px}
-
-/* SUPPORTS */
-.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px}
-.sc{background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:10px 12px;cursor:pointer;transition:.15s;box-shadow:var(--s)}
-.sc:hover{border-color:#d0c5ba}
-.sc .nm{font-size:.74rem;font-weight:600;color:var(--tx);margin-bottom:2px;display:flex;align-items:center;gap:5px}
-.sc .mt{font-size:.62rem;color:var(--mt);margin-bottom:3px}
-.sc .tg{display:flex;flex-wrap:wrap;gap:2px}
-.sc .tg b{font-size:.5rem;font-weight:600;padding:1px 6px;border-radius:5px;display:inline-block;line-height:1.3}
-
-/* TAG COLORS */
-.tg .sp{background:#e6f0e6;color:#1a7a3a}.tg .st{background:#faf0d6;color:#a07010}.tg .pw{background:#f8e0de;color:#b13030}.tg .gu{background:#e0eaf6;color:#1a5a9a}.tg .in{background:#eee6f6;color:#6a3a9a}
-.tg .ss{background:#f0eaea;color:#8a3a3a}.tg .sr{background:#eaeef2;color:#3a5a7a}.tg .r{background:#eeeee8;color:#6a6a5a}
-.sc .tg .sp{background:#e6f0e6;color:#1a7a3a}.sc .tg .st{background:#faf0d6;color:#a07010}.sc .tg .pw{background:#f8e0de;color:#b13030}.sc .tg .gu{background:#e0eaf6;color:#1a5a9a}.sc .tg .in{background:#eee6f6;color:#6a3a9a}
-.sc .tg .ss{background:#f0eaea;color:#8a3a3a}.sc .tg .sr{background:#eaeef2;color:#3a5a7a}.sc .tg .r{background:#eeeee8;color:#6a6a5a}
-.bs{background:var(--g1)}.bt{background:var(--g2)}.bp{background:var(--g3)}.bg{background:var(--g4)}.bi{background:var(--g5)}
-
-/* CALC */
-.cw{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;background:var(--cd);border:1px solid var(--bd);border-radius:var(--r);padding:18px;box-shadow:var(--s)}
-.cs{display:flex;flex-direction:column;gap:6px}
-.ci{display:flex;align-items:center;gap:6px}
-.ci label{font-size:.68rem;font-weight:600;width:34px;flex-shrink:0;color:var(--tx)}
-.ci input[type=number]{padding:4px 7px;border:1px solid var(--bd);border-radius:5px;background:#faf8f5;font-size:.74rem;font-family:var(--f);outline:none;width:62px}
-.ci input[type=number]:focus{border-color:var(--gd)}
-.ci input[type=range]{flex:1;height:2px;-webkit-appearance:none;background:var(--bd);border-radius:2px;outline:none}
-.ci input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:var(--nv);cursor:pointer}
-.rs{background:var(--nv);border-radius:var(--r);padding:16px;text-align:center;display:flex;flex-direction:column;gap:3px;align-items:center;color:#e8ddd0}
-.rs .rl{font-size:.56rem;opacity:.4;font-weight:600;letter-spacing:.4px}
-.rs .rn{font-size:2rem;font-weight:800;font-family:monospace;line-height:1;color:var(--gd)}
-.rs .rs{font-size:.8rem}
-.rs .rg{font-size:.76rem;font-weight:600}
-.rs .rp{font-size:.66rem;opacity:.4}
-.btn{padding:5px 14px;border-radius:5px;border:none;background:var(--gd);color:var(--nv);font-weight:600;cursor:pointer;font-size:.7rem;font-family:var(--f);margin-top:4px}
-
-/* FOOTER */
-.ft{background:var(--nv);color:rgba(232,221,208,.3);padding:28px 0 12px;margin-top:40px}
-.fi{max-width:1100px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;margin-bottom:10px}
-.ft h3{font-size:.7rem;color:var(--gd);margin-bottom:5px}
-.ft ul{list-style:none}
-.ft ul li{margin-bottom:2px}
-.ft a{color:rgba(232,221,208,.25);font-size:.66rem;text-decoration:none}
-.ft a:hover{color:#e8ddd0}
-.cy{text-align:center;font-size:.6rem;color:rgba(232,221,208,.1);border-top:1px solid rgba(232,221,208,.04);padding-top:8px;max-width:1100px;margin:0 auto;padding-left:20px;padding-right:20px}
-
-#tb{position:fixed;bottom:20px;right:20px;width:32px;height:32px;border-radius:50%;border:none;background:var(--cd);color:var(--nv);font-size:.78rem;cursor:pointer;display:none;z-index:99;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-#tb:hover{background:var(--nv);color:var(--gd)}
-#ld{position:fixed;inset:0;background:var(--nv);display:flex;align-items:center;justify-content:center;z-index:9999;opacity:0;pointer-events:none;transition:opacity .3s}
-.sp{width:22px;height:22px;border:2px solid rgba(232,221,208,.06);border-top-color:var(--gd);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* DETAIL PAGE */
-#dp{display:none}
-#dp.s{display:block;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto}
-#db{display:flex;align-items:center;gap:6px;padding:10px 20px;background:var(--nv);color:#e8ddd0;font-size:.72rem;font-weight:600;cursor:pointer;border:none;width:100%;text-align:left;font-family:var(--f)}
-#db:hover{opacity:.85}
-#dc{padding:20px;max-width:700px;margin:0 auto;line-height:1.6}
-#dc .di{font-size:2rem;margin-bottom:10px;text-align:center}
-#dc h2{font-size:1.2rem;font-weight:700;margin-bottom:4px;color:var(--tx)}
-#dc .dm{font-size:.7rem;color:var(--mt);margin-bottom:12px}
-#dc .de{font-size:.82rem;color:var(--tx);line-height:1.7}
-#dc .dt{margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);font-size:.7rem;color:var(--mt)}
-
-@media(max-width:768px){
-.nm{position:fixed;top:50px;left:0;right:0;background:var(--nv);flex-direction:column;padding:4px 0;transform:translateY(-120%);z-index:99}
-.nm.open{transform:translateY(0)}
-.nm a{padding:8px 18px}
-.mb{display:flex}
-.he{padding:44px 16px 36px}
-.he h1{font-size:1.6rem}
-.cw{grid-template-columns:1fr}
-}
-@media(max-width:480px){
-html{font-size:14px}
-.he h1{font-size:1.4rem}
-.cg{grid-template-columns:repeat(auto-fill,minmax(85px,1fr))}
-.sg{grid-template-columns:1fr}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="全球顶级手工陶瓷艺术品 - 传承千年工艺，融合现代美学">
+    <meta name="keywords" content="陶瓷摆件,手工陶瓷,艺术品,高端家居,景德镇瓷器">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="璟瓷堂 - 传世艺术珍品">
+    <meta property="og:description" content="博物馆级陶瓷艺术品，全球配送">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=1200">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "璟瓷堂",
+      "description": "高端手工陶瓷艺术品",
+      "url": "https://yoursite.com",
+      "priceRange": "$$$$"
+    }
+    </script>
+    
+    <title>璟瓷堂 | 传世艺术珍品 - Timeless Ceramic Elegance</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Noto+Serif+SC:wght@300;400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Animation Libraries -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    
+    <style>
+        /* ========== CSS 变量系统 ========== */
+        :root {
+            --primary-cream: #F9F6F1;
+            --secondary-celadon: #A8C5B0;
+            --accent-gold: #C9A961;
+            --charcoal: #2C2C2C;
+            --warm-grey: #8B8680;
+            --highlight: #E8DCC4;
+            --trust-blue: #4A6FA5;
+            
+            --font-serif: 'Cormorant Garamond', 'Noto Serif SC', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-chinese: 'Noto Serif SC', serif;
+            
+            --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-elegant: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        
+        /* ========== 全局重置 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: var(--font-chinese);
+            background-color: var(--primary-cream);
+            color: var(--charcoal);
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+        
+        /* ========== 加载动画 ========== */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #F9F6F1 0%, #E8DCC4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s, visibility 0.8s;
+        }
+        
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loader-ceramic {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            animation: spin 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        
+        .loader-ceramic::before,
+        .loader-ceramic::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid var(--accent-gold);
+        }
+        
+        .loader-ceramic::before {
+            width: 100%;
+            height: 100%;
+            border-top-color: transparent;
+            border-right-color: transparent;
+        }
+        
+        .loader-ceramic::after {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border-bottom-color: transparent;
+            border-left-color: transparent;
+            animation: spin 1s linear infinite reverse;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* ========== 导航栏 ========== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(249, 246, 241, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        nav.scrolled {
+            background: rgba(249, 246, 241, 0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-chinese);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.4s;
+        }
+        
+        .logo:hover::after {
+            width: 100%;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--charcoal);
+            font-weight: 400;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .nav-links a:hover::before {
+            width: 100%;
+        }
+        
+        .nav-icons {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .nav-icons i {
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            color: var(--charcoal);
+        }
+        
+        .nav-icons i:hover {
+            color: var(--accent-gold);
+            transform: scale(1.1);
+        }
+        
+        .lang-switch {
+            padding: 0.4rem 1rem;
+            background: transparent;
+            border: 1px solid var(--warm-grey);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition-smooth);
+            color: var(--charcoal);
+        }
+        
+        .lang-switch:hover {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: white;
+        }
+        
+        /* ========== 移动端菜单 ========== */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 2px;
+            background: var(--charcoal);
+            transition: 0.3s;
+        }
+        
+        /* ========== 顶部通知栏 ========== */
+        .top-banner {
+            background: linear-gradient(90deg, var(--accent-gold), #D4A574);
+            color: white;
+            text-align: center;
+            padding: 0.8rem;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-top: 80px;
+        }
+        
+        .top-banner a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        
+        /* ========== Hero 区域 ========== */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%);
+            z-index: 2;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            padding: 2rem;
+        }
+        
+        .hero-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s 0.3s forwards;
+        }
+        
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s 0.6s forwards;
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s 0.9s forwards;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s 1.2s forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .btn {
+            padding: 1rem 3rem;
+            border: none;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            display: inline-block;
+            font-family: var(--font-chinese);
+        }
+        
+        .btn-primary {
+            background: var(--accent-gold);
+            color: white;
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: #B89851;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 169, 97, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--charcoal);
+            transform: translateY(-3px);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-indicator i {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        
+        /* ========== 特色服务栏 ========== */
+        .features {
+            background: white;
+            padding: 3rem 2rem;
+        }
+        
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            transition: var(--transition-smooth);
+        }
+        
+        .feature-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--charcoal);
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--warm-grey);
+            line-height: 1.6;
+        }
+        
+        /* ========== 精选系列 ========== */
+        .collections {
+            padding: 8rem 2rem;
+            background: var(--primary-cream);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--charcoal);
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--warm-grey);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .collections-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+        }
+        
+        .collection-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-elegant);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .collection-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .collection-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 400px;
+        }
+        
+        .collection-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+        
+        .collection-card:hover .collection-image {
+            transform: scale(1.1) rotate(2deg);
+        }
+        
+        .collection-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-gold);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .ar-preview-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,255,255,0.95);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .collection-card:hover .ar-preview-btn {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+        
+        .collection-info {
+            padding: 2rem;
+        }
+        
+        .collection-category {
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 0.8rem;
+        }
+        
+        .collection-name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+        
+        .collection-desc {
+            font-size: 0.95rem;
+            color: var(--warm-grey);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .collection-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #E8E6E0;
+        }
+        
+        .collection-price {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+        
+        .price-currency {
+            font-size: 1.2rem;
+            color: var(--warm-grey);
+        }
+        
+        .collection-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stars {
+            color: var(--accent-gold);
+        }
+        
+        .rating-count {
+            font-size: 0.85rem;
+            color: var(--warm-grey);
+        }
+        
+        /* ========== 场景化展示 ========== */
+        .scene-selector {
+            padding: 8rem 2rem;
+            background: white;
+        }
+        
+        .scene-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+        
+        .scene-tab {
+            padding: 1rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--warm-grey);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--charcoal);
+        }
+        
+        .scene-tab.active,
+        .scene-tab:hover {
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .scene-display {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 600px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            box-shadow: var(--shadow-elegant);
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+        
+        .scene-products {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .scene-product-card {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 8px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: var(--transition-smooth);
+        }
+        
+        .scene-product-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .scene-product-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+        
+        .scene-product-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .scene-product-price {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+        
+        /* ========== 大师合作 ========== */
+        .masters {
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, #F9F6F1 0%, #E8DCC4 100%);
+        }
+        
+        .masters-carousel {
+            max-width: 1400px;
+            margin: 3rem auto;
+            position: relative;
+        }
+        
+        .masters-track {
+            display: flex;
+            gap: 3rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 2rem 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .masters-track::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .masters-track::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        
+        .masters-track::-webkit-scrollbar-thumb {
+            background: var(--accent-gold);
+            border-radius: 10px;
+        }
+        
+        .master-card {
+            min-width: 350px;
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem;
+            scroll-snap-align: center;
+            box-shadow: var(--shadow-elegant);
+            transition: var(--transition-smooth);
+            text-align: center;
+        }
+        
+        .master-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+        
+        .master-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 2rem;
+            border: 4px solid var(--accent-gold);
+        }
+        
+        .master-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+        
+        .master-title {
+            font-size: 1rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .master-bio {
+            font-size: 0.95rem;
+            color: var(--warm-grey);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .master-cta {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 2px solid var(--accent-gold);
+            color: var(--accent-gold);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: 600;
+        }
+        
+        .master-cta:hover {
+            background: var(--accent-gold);
+            color: white;
+        }
+        
+        /* ========== 客户见证 ========== */
+        .testimonials {
+            padding: 8rem 2rem;
+            background: white;
+        }
+        
+        .testimonials-grid {
+            max-width: 1400px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+        
+        .testimonial-card {
+            background: var(--primary-cream);
+            padding: 3rem;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: var(--shadow-elegant);
+            transition: var(--transition-smooth);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .quote-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            opacity: 0.3;
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--charcoal);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--charcoal);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: var(--warm-grey);
+        }
+        
+        .testimonial-rating {
+            color: var(--accent-gold);
+            margin-top: 0.5rem;
+        }
+        
+        /* ========== Newsletter ========== */
+        .newsletter {
+            background: linear-gradient(135deg, var(--charcoal) 0%, #1a1a1a 100%);
+            padding: 6rem 2rem;
+            text-align: center;
+            color: white;
+        }
+        
+        .newsletter h2 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+        }
+        
+        .newsletter p {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .newsletter-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 1.2rem 2rem;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+        
+        .newsletter-form input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .newsletter-form input:focus {
+            border-color: var(--accent-gold);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .newsletter-form button {
+            padding: 1.2rem 3rem;
+            background: var(--accent-gold);
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        
+        .newsletter-form button:hover {
+            background: #B89851;
+            transform: translateY(-3px);
+        }
+        
+        /* ========== Footer ========== */
+        footer {
+            background: var(--charcoal);
+            color: rgba(255,255,255,0.8);
+            padding: 5rem 2rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-brand h3 {
+            font-family: var(--font-chinese);
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-brand p {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: var(--transition-smooth);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-gold);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links ul li a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .payment-methods i {
+            font-size: 2rem;
+            opacity: 0.6;
+        }
+        
+        /* ========== 返回顶部按钮 ========== */
+        #backToTop {
+            position: fixed;
+            bottom: 3rem;
+            right: 3rem;
+            width: 50px;
+            height: 50px;
+            background: var(--accent-gold);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+            z-index: 999;
+        }
+        
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        #backToTop:hover {
+            background: #B89851;
+            transform: translateY(-5px);
+        }
+        
+        /* ========== 响应式设计 ========== */
+        @media (max-width: 1024px) {
+            .nav-container {
+                padding: 1rem 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .features-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .collections-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .scene-tabs {
+                gap: 1rem;
+            }
+            
+            .scene-tab {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<div id="ld"><div class="sp"></div></div>
-
-<div class="hd">
-<div class="hi">
-<a class="hl" href="#home"><i>🏇</i>赛马娘攻略站</a>
-<ul class="nm" id="nv">
-<li><a href="#home">首页</a></li>
-<li><a href="#guides">攻略</a></li>
-<li><a href="#tools">工具</a></li>
-<li><a href="#chars">图鉴</a></li>
-<li><a href="#calc">计算器</a></li>
-</ul>
-<button class="mb" id="mb"><span></span><span></span><span></span></button>
-</div>
-</div>
-
-<div class="he" id="home">
-<h1>赛马娘 <u>攻略站</u></h1>
-<p>育成攻略 · 支援卡评测 · 技能数据库 · 赛事日历</p>
-<div class="sb">
-<input type="search" id="si" placeholder="搜索马娘、支援卡、攻略..." autocomplete="off">
-<button id="sbtn">搜索</button>
-</div>
-<div id="sr"></div>
-</div>
-
-<div class="w">
-
-<section class="sec" id="guides">
-<div class="sh"><i></i>精选攻略</div>
-<div class="fg" id="fg"></div>
-</section>
-
-<section class="sec" id="tools">
-<div class="sh"><i></i>快捷工具</div>
-<div class="tl" id="tl"></div>
-</section>
-
-<section class="sec" id="news">
-<div class="sh"><i></i>最新动态</div>
-<div class="nl" id="nl"></div>
-</section>
-
-<section class="sec" id="chars">
-<div class="sh"><i></i>马娘一览 <span id="cCt"></span></div>
-<div class="fb" id="cf"></div>
-<div class="cg" id="cg"></div>
-</section>
-
-<section class="sec" id="supps">
-<div class="sh"><i></i>支援卡一览 <span id="sCt"></span></div>
-<div class="fb" id="kf"></div>
-<div class="sg" id="sg"></div>
-</section>
-
-<section class="sec" id="calc">
-<div class="sh"><i></i>育成计算器</div>
-<p style="color:var(--mt);font-size:.74rem;margin-bottom:10px">输入五维属性，实时计算综合评分与评级</p>
-<div class="cw">
-<div class="cs">
-<div class="ci"><label style="color:var(--g1)">速度</label><input type="number" id="sp" min="0" max="1200" value="800"><input type="range" id="spR" min="0" max="1200" value="800"></div>
-<div class="ci"><label style="color:var(--g2)">耐力</label><input type="number" id="sk" min="0" max="1200" value="600"><input type="range" id="skR" min="0" max="1200" value="600"></div>
-<div class="ci"><label style="color:var(--g3)">力量</label><input type="number" id="po" min="0" max="1200" value="700"><input type="range" id="poR" min="0" max="1200" value="700"></div>
-<div class="ci"><label style="color:var(--g4)">毅力</label><input type="number" id="gu" min="0" max="1200" value="500"><input type="range" id="guR" min="0" max="1200" value="500"></div>
-<div class="ci"><label style="color:var(--g5)">智力</label><input type="number" id="it" min="0" max="1200" value="650"><input type="range" id="itR" min="0" max="1200" value="650"></div>
-</div>
-<div class="rs">
-<div class="rl">综合评分</div>
-<div class="rn" id="ts">0</div>
-<div class="rs" id="sd"></div>
-<div class="rg" id="gd"></div>
-<div class="rp" id="stp">输入属性开始计算</div>
-<button class="btn" id="sv">💾 保存</button>
-</div>
-</div>
-</section>
-
-</div>
-
-<div class="ft">
-<div class="fi">
-<div><h3>🏇 赛马娘攻略站</h3><p style="color:rgba(232,221,208,.18);font-size:.62rem">为所有训练员打造的攻略平台</p></div>
-<div><h3>友情链接</h3><ul id="fl"></ul></div>
-</div>
-<div class="cy">© 2024 赛马娘攻略站</div>
-</div>
-
-<button id="tb">⬆</button>
-
-<div id="dp"><button id="db">← 返回</button><div id="dc"></div></div>
-
-<script>
-(function(){
-var C={};
-var F={
-tools:[{i:'🧮',t:'育成计算器',d:'实时计算属性评分'},{i:'🎴',t:'配卡推荐',d:'推荐最优支援卡组合'},{i:'⚡',t:'技能数据库',d:'全技能效果查询'},{i:'🧬',t:'因子计算',d:'继承概率计算'},{i:'🏁',t:'赛事日历',d:'G1赛程一览'},{i:'🤝',t:'种马分享',d:'种马交换入口'}],
-guides:[{i:'🏆',t:'新手入门完全指南',v:15200,dt:'2024-01-15',ta:['新手'],e:'30分钟掌握赛马娘核心玩法，从注册到育成全流程讲解'},{i:'💎',t:'东海帝皇育成攻略',v:23800,dt:'2024-01-14',ta:['育成'],e:'通关率95%实战方案，技能搭配与属性分配详解'},{i:'🎯',t:'竞技场上分配置',v:18500,dt:'2024-01-13',ta:['PVP'],e:'三大主流配置详解，各距离最优阵容推荐'},{i:'📊',t:'支援卡性价比排行',v:31200,dt:'2024-01-12',ta:['支援卡'],e:'全支援卡分级推荐，SSR/SR/R各稀有度性价比分析'},{i:'🧬',t:'种马培育终极指南',v:19800,dt:'2025-03-01',ta:['种马'],e:'蓝因子3星法则、相性计算、配种全攻略'},{i:'✨',t:'Twinkle Legends攻略',v:31200,dt:'2025-03-18',ta:['剧本'],e:'红色ハイセイコー路线、最佳支援卡搭配'},{i:'🌟',t:'大师赛配卡育成',v:22400,dt:'2024-07-02',ta:['剧本'],e:'三女神机制详解，最优育成路线'},{i:'🎴',t:'十选二卡池推荐',v:25600,dt:'2025-03-20',ta:['抽卡'],e:'四周年卡池优先级，各属性推荐排名'}],
-news:[{t:'新马娘「勇舞者」实装',dt:'2026-05-11',e:'★★★ デアリングハート正式实装'},{t:'冠军集会CLASSIC开催',dt:'2026-05-18',e:'6月下旬CLASSIC赛季开启'},{t:'春G1纪念任务进行中',dt:'2026-05-18',e:'完成可得新马娘碎片'},{t:'第14回LoH编成开始',dt:'2026-05-18',e:'英雄联赛团队编成期间'},{t:'新★3采珠实装',dt:'2026-04-20',e:'采珠实装 冠军集会DIRT开催'},{t:'Steam版联动特典',dt:'2025-06-26',e:'数据联动可得宝石500'}],
-fl:[{n:'NGA赛马娘版',u:'https://nga.178.com/thread.php?fid=784'},{n:'GameWith',u:'https://gamewith.jp/uma-musume/'},{n:'Bilibili Wiki',u:'https://wiki.biligame.com/umamusume/'},{n:'巴哈姆特',u:'https://forum.gamer.com.tw/B.php?bsn=34421'}],
-chars:[{n:'特别周',ta:['先行','中距离','SSR']},{n:'无声铃鹿',ta:['逃马','长距离','SSR']},{n:'东海帝皇',ta:['逃马','长距离','SSR']},{n:'小栗帽',ta:['先行','中距离','SSR']},{n:'黄金船',ta:['差马','中距离','SSR']},{n:'伏特加',ta:['先行','英里','SSR']},{n:'大和赤骥',ta:['逃马','英里','SSR']},{n:'大树快车',ta:['逃马','短距离','SSR']},{n:'草上飞',ta:['先行','中距离','SSR']},{n:'目白麦昆',ta:['逃马','长距离','SSR']}],
-supps:[{n:'速子',ta:['速度','SSR']},{n:'北部玄驹',ta:['速度','SSR']},{n:'小栗帽',ta:['速度','SSR']},{n:'超级小溪',ta:['耐力','SSR']},{n:'伏特加',ta:['力量','SSR']},{n:'鲁道夫象征',ta:['智力','SSR']},{n:'美妙姿势',ta:['智力','SSR']},{n:'绿帽',ta:['耐力','SR']}]
-};
-
-function $(id){return document.getElementById(id)}
-function at(t){return t||[]}
-function tc(ta){var t=ta||[];for(var i=0;i<t.length;i++){if(t[i]=='逃马')return'ss';if(t[i]=='先行')return'sr';if(t[i]=='差马')return'pw';if(t[i]=='追马')return'in';if(t[i]=='速度')return'sp';if(t[i]=='耐力')return'st';if(t[i]=='力量')return'pw';if(t[i]=='毅力')return'gu';if(t[i]=='智力')return'in'}return'sp'}
-function tn(ta){var t=ta||[];for(var i=0;i<t.length;i++){if(t[i]=='逃马')return'逃';if(t[i]=='先行')return'先';if(t[i]=='差马')return'差';if(t[i]=='追马')return'追';if(t[i]=='速度')return'速';if(t[i]=='耐力')return'耐';if(t[i]=='力量')return'力';if(t[i]=='毅力')return'根';if(t[i]=='智力')return'智'}return''}
-
-function render(){
-var tl=(C.tools||F.tools||[]),th='',ic=['#d4565a','#e8a838','#5ba85a','#4a8fc4','#8a6ab8','#c4882a'];
-for(var i=0;i<tl.length;i++){var t=tl[i];th+='<div class="tc"><div class="i"><b style="background:'+ic[i%ic.length]+'20;color:'+ic[i%ic.length]+'">'+t.i+'</b></div><div class="ti">'+t.t+'</div><div class="ds">'+(t.d||'')+'</div></div>'}
-$('tl').innerHTML=th;
-
-var gl=(C.guides||F.guides||[]),gh='';
-for(var i=0;i<gl.length;i++){var g=gl[i],gt='';if(g.ta){for(var j=0;j<g.ta.length;j++)gt+='<span class="gb">'+g.ta[j]+'</span>'}
-gh+='<div class="fc"><div class="fl">'+(g.i||'📖')+'</div><div class="fr">'+gt+'<h3>'+g.t+'</h3><div class="mv">👁 '+(g.v||0).toLocaleString()+'</div><div class="ex">'+g.e+'</div></div></div>'}
-$('fg').innerHTML=gh;
-
-var nl=(C.news||F.news||[]),nh='';
-for(var i=0;i<nl.length;i++){var n=nl[i],d=new Date(n.dt);nh+='<div class="ni"><div class="nd"><div class="d">'+d.getDate()+'</div><div class="m">'+(d.getMonth()+1)+'月</div></div><div><h4>'+n.t+'</h4><p>'+(n.e||'')+'</p></div></div>'}
-$('nl').innerHTML=nh;
-
-var ll=(C.fl||F.fl||[]),lh='';
-for(var i=0;i<ll.length;i++)lh+='<li><a href="'+ll[i].u+'" target="_blank">'+ll[i].n+'</a></li>';
-$('fl').innerHTML=lh;
-
-rc();rk();
-}
-
-/* CHARS */
-var CF='all';
-function rc(){
-var ch=C.chars||F.chars||[],fh=[];
-for(var i=0;i<ch.length;i++){if(CF==='all'||at(ch[i].ta).indexOf(CF)!==-1)fh.push(ch[i])}
-$('cCt').textContent='('+fh.length+'/'+ch.length+')';
-var ft=[],al=[];
-for(var i=0;i<ch.length;i++){var ta=at(ch[i].ta);for(var j=0;j<ta.length;j++){if(ft.indexOf(ta[j])===-1)ft.push(ta[j])}}
-['逃马','先行','差马','追马','SSR','SR','R'].forEach(function(r){if(ft.indexOf(r)!==-1)al.push(r)})
-var fb='<button class="on" data-v="all">全部</button>';
-for(var i=0;i<al.length;i++)fb+='<button data-v="'+al[i]+'">'+al[i]+'</button>';
-$('cf').innerHTML=fb;
-var cfb=$('cf').querySelectorAll('button');
-for(var i=0;i<cfb.length;i++){cfb[i].onclick=function(b){return function(){var a=$('cf').querySelectorAll('button');for(var j=0;j<a.length;j++)a[j].classList.remove('on');b.classList.add('on');CF=b.getAttribute('data-v');rc()}}(cfb[i])}
-var h='';
-for(var i=0;i<fh.length;i++){var c=fh[i],nm=tn(c.ta),cl=tc(c.ta);
-h+='<div class="cc"><div class="nm">'+c.n+'</div><div class="jp">'+(c.jp||'')+'</div><div class="tg">'+(nm?'<b class="'+cl+'">'+nm+'</b>':'')+'</div></div>'}
-$('cg').innerHTML=h;
-}
-
-/* SUPPS */
-var KF='all';
-function rk(){
-var sp=C.supps||F.supps||[],fh=[];
-for(var i=0;i<sp.length;i++){if(KF==='all'||at(sp[i].ta).indexOf(KF)!==-1)fh.push(sp[i])}
-$('sCt').textContent='('+fh.length+'/'+sp.length+')';
-var ft=[],al=[];
-for(var i=0;i<sp.length;i++){var ta=at(sp[i].ta);for(var j=0;j<ta.length;j++){if(ft.indexOf(ta[j])===-1)ft.push(ta[j])}}
-['SSR','SR','R','限定'].forEach(function(r){if(ft.indexOf(r)!==-1)al.push(r)})
-var fb='<button class="on" data-v="all">全部</button>';
-for(var i=0;i<al.length;i++)fb+='<button data-v="'+al[i]+'">'+al[i]+'</button>';
-$('kf').innerHTML=fb;
-var kfb=$('kf').querySelectorAll('button');
-for(var i=0;i<kfb.length;i++){kfb[i].onclick=function(b){return function(){var a=$('kf').querySelectorAll('button');for(var j=0;j<a.length;j++)a[j].classList.remove('on');b.classList.add('on');KF=b.getAttribute('data-v');rk()}}(kfb[i])}
-var h='';
-for(var i=0;i<fh.length;i++){var s=fh[i],nm=tn(s.ta),cl=tc(s.ta),attr=[],rar='';
-for(var j=0;j<at(s.ta).length;j++){var t=at(s.ta)[j];if(['SSR','SR','R','限定'].indexOf(t)===-1)attr.push(t);else rar=t}
-h+='<div class="sc"><div class="nm">'+(nm?'<b class="'+cl+'" style="font-size:.6rem;padding:1px 5px;border-radius:4px;margin-right:3px;display:inline-block;line-height:1.3">'+nm+'</b>':'')+s.n+'</div><div class="mt">'+(attr.join('·')||'')+'</div><div class="tg">'+(rar?'<b class="'+(rar=='SSR'?'ss':rar=='SR'?'sr':rar=='R'?'r':'in')+'">'+rar+'</b>':'')+'</div></div>'}
-$('sg').innerHTML=h;
-}
-
-/* SEARCH */
-var SI=[];
-(function(){var ch=C.chars||F.chars||[],sp=C.supps||F.supps||[],gl=C.guides||F.guides||[];for(var i=0;i<ch.length;i++)SI.push({n:ch[i].n,t:'马娘'});for(var i=0;i<sp.length;i++)SI.push({n:sp[i].n,t:'支援卡'});for(var i=0;i<gl.length;i++)SI.push({n:gl[i].t,t:'攻略'})})();
-var si=$('si'),sr=$('sr');
-function ds(q){if(!q||q.length<1){sr.style.display='none';return}var k=q.toLowerCase(),r=[];for(var i=0;i<SI.length;i++){if(SI[i].n.toLowerCase().indexOf(k)!==-1||SI[i].n.indexOf(k)!==-1){r.push(SI[i]);if(r.length>=12)break}}if(!r.length){sr.innerHTML='<div class="sr-i" style="cursor:default;color:var(--mtd)">无结果</div>';sr.style.display='block';return}var h='';for(var i=0;i<r.length;i++)h+='<div class="sr-i"><b>'+r[i].t+'</b><strong>'+r[i].n+'</strong></div>';sr.innerHTML=h;sr.style.display='block'}
-si.oninput=function(){ds(this.value)};si.onblur=function(){setTimeout(function(){sr.style.display='none'},150)};si.onfocus=function(){if(si.value)ds(si.value)};
-$('sbtn').onclick=function(){ds(si.value)};si.onkeydown=function(e){if(e.key==='Enter')ds(si.value)};
-
-/* CALC */
-var cv={sp:800,sk:600,po:700,gu:500,it:650};
-['sp','sk','po','gu','it'].forEach(function(k){var el=$(k),sl=$(k+'R');if(el&&sl){el.oninput=function(){var v=Math.min(1200,Math.max(0,parseInt(el.value)||0));cv[k]=v;sl.value=v;cl()};sl.oninput=function(){var v=parseInt(sl.value);cv[k]=v;el.value=v;cl()}}});
-function cl(){var t=cv.sp+cv.sk+cv.po+cv.gu+cv.it;$('ts').textContent=t;var g='C',s='⭐',ti='继续加油！';if(t>=5000){g='SS';s='⭐⭐⭐⭐⭐';ti='完美属性配置'}else if(t>=4000){g='S';s='⭐⭐⭐⭐⭐';ti='优秀育成，可挑战高难度赛事'}else if(t>=3000){g='A';s='⭐⭐⭐⭐';ti='建议继续提升速度和智力'}else if(t>=2000){g='B';s='⭐⭐⭐';ti='还有很大提升空间'}$('sd').textContent=s;$('gd').textContent=g+'级评价';$('stp').textContent=ti;}
-$('sv').onclick=function(){try{localStorage.setItem('uma_calc',JSON.stringify(cv));T('已保存 ✓')}catch(e){}};
-try{var s=JSON.parse(localStorage.getItem('uma_calc')||'{}');if(typeof s.sp!=='undefined'){['sp','sk','po','gu','it'].forEach(function(k){if(typeof s[k]!=='undefined'){cv[k]=s[k];var el=$(k);if(el)el.value=s[k];var sl=$(k+'R');if(sl)sl.value=s[k]}});cl()}}catch(e){}
-
-$('mb').onclick=function(){this.classList.toggle('act');$('nv').classList.toggle('open')};
-var nva=$('nv').querySelectorAll('a');
-for(var i=0;i<nva.length;i++){nva[i].onclick=function(e){var h=this.getAttribute('href');if(h.charAt(0)==='#'){e.preventDefault();$(h.substring(1)).scrollIntoView({behavior:'smooth'});$('nv').classList.remove('open');$('mb').classList.remove('act');for(var j=0;j<nva.length;j++)nva[j].classList.remove('act');this.classList.add('act')}}}
-var tb=$('tb');window.onscroll=function(){tb.style.display=window.scrollY>200?'block':'none'};tb.onclick=function(){window.scrollTo({top:0,behavior:'smooth'})};
-function T(m){var t=document.createElement('div');t.textContent=m;t.style.cssText='position:fixed;top:60px;right:14px;background:var(--nv);color:var(--gd);padding:6px 14px;border-radius:5px;font-weight:600;z-index:9999;font-size:.72rem;box-shadow:0 4px 16px rgba(0,0,0,.2)';document.body.appendChild(t);setTimeout(function(){t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(function(){t.remove()},300)},1400)}
-
-C={
-    "stats": {
-        "characterCount": 68,
-        "supportCount": 108,
-        "guideCount": 16
-    },
-    "tools": [
-        { "id": "calculator", "icon": "🧮", "title": "育成计算器", "description": "实时计算属性成长与评分，规划最优育成路线", "url": "#calc" },
-        { "id": "deck-builder", "icon": "🎴", "title": "配卡推荐器", "description": "根据马娘目标自动推荐最优支援卡组合", "url": "#calc" },
-        { "id": "skill-db", "icon": "⚡", "title": "技能数据库", "description": "全技能效果、发动条件与金技能查询", "url": "#calc" },
-        { "id": "inherit-calc", "icon": "🧬", "title": "因子继承计算", "description": "计算蓝因子红因子继承概率与相性", "url": "#calc" },
-        { "id": "race-schedule", "icon": "🏁", "title": "赛事日历", "description": "全育成剧本目标赛事与G1赛程一览", "url": "#calc" },
-        { "id": "friends", "icon": "🤝", "title": "种马分享", "description": "种马交换与好友招募平台入口", "url": "#calc" }
-    ],
-    "guides": [
-        {
-            "id": 1, "title": "新手入门完全指南", "icon": "🏆",
-            "views": 15200, "date": "2024-01-15",
-            "tags": ["新手", "基础"],
-            "excerpt": "从零开始，30分钟掌握赛马娘核心玩法——育成流程、属性作用、支援卡选择、技能学习，完整教学。"
-        },
-        {
-            "id": 2, "title": "东海帝皇 URA 5星育成攻略", "icon": "💎",
-            "views": 23800, "date": "2024-01-14",
-            "tags": ["育成", "长距离", "逃马"],
-            "excerpt": "详细回合规划、支援卡配置、技能选择，通关率95%以上的实战方案，助你稳定SS评价。"
-        },
-        {
-            "id": 3, "title": "竞技场S级上分卡组推荐", "icon": "🎯",
-            "views": 18500, "date": "2024-01-13",
-            "tags": ["PVP", "竞技场", "配置"],
-            "excerpt": "最新赛季三大主流配置详解，短英中长四种距离赛道策略分析与推荐马娘。"
-        },
-        {
-            "id": 4, "title": "支援卡性价比排行榜", "icon": "📊",
-            "views": 31200, "date": "2024-01-12",
-            "tags": ["支援卡", "推荐", "评测"],
-            "excerpt": "全支援卡强度分级，平民、小氪、大佬三档推荐，哪些卡值得优先满破？"
-        },
-        {
-            "id": 5, "title": "技能继承机制深度解析", "icon": "🧬",
-            "views": 12300, "date": "2024-01-10",
-            "tags": ["机制", "技能", "继承"],
-            "excerpt": "完整解析技能继承概率计算、蓝因子红因子白因子系统、相性表，种马培育核心知识。"
-        },
-        {
-            "id": 6, "title": "青春杯改版育成攻略", "icon": "🏫",
-            "views": 28100, "date": "2024-01-05",
-            "tags": ["剧本", "青春杯", "育成"],
-            "excerpt": "青春杯全事件选项、团体训练技巧、Boss战对策，推荐马娘与支援卡配卡思路。"
-        },
-        {
-            "id": 7, "title": "巅峰杯赛程规划与配卡", "icon": "🏆",
-            "views": 15700, "date": "2023-12-28",
-            "tags": ["巅峰杯", "赛程", "高级"],
-            "excerpt": "巅峰杯高评分育成路线，粉丝数最大化与属性兼顾的配卡方案，中期运营要点。"
-        },
-        {
-            "id": 8, "title": "大师赛(三女神盃) 配卡与育成思路", "icon": "🌟",
-            "views": 22400, "date": "2024-07-02",
-            "tags": ["大师赛", "三女神", "剧本"],
-            "excerpt": "三女神机制详解——女神知识等级、外出时机、推荐配卡二速二智一友一团的科学育成法。"
-        },
-        {
-            "id": 9, "title": "种马培育终极指南", "icon": "🧬",
-            "views": 19800, "date": "2025-03-01",
-            "tags": ["种马", "因子", "进阶"],
-            "excerpt": "三周年种马攻略——蓝因子3星概率10%法则、G1赛事白因子、父母相性双圈技巧。"
-        },
-        {
-            "id": 10, "title": "The Twinkle Legends 剧本攻略", "icon": "✨",
-            "views": 31200, "date": "2025-03-18",
-            "tags": ["剧本", "Twinkle", "最新"],
-            "excerpt": "最新剧本红色ハイセイコー路线攻略——羁绊心得选择、团体卡出门时机、指南计量管理。"
-        },
-        {
-            "id": 11, "title": "三周年十选二卡池推荐指南", "icon": "🎴",
-            "views": 25600, "date": "2025-03-20",
-            "tags": ["卡池", "抽卡", "推荐"],
-            "excerpt": "四周年后十选二推荐——速杏目、黄金巨匠、爱如往昔等卡池优先级分析，无微课抽取建议。"
-        },
-        {
-            "id": 12, "title": "全育成加速设定指南", "icon": "⚡",
-            "views": 14500, "date": "2025-07-19",
-            "tags": ["技巧", "设定", "效率"],
-            "excerpt": "跳过高速化·事件缩短·温泉不跳过——从基本设定到2.5周年更新，全方位加速育成流程。"
-        },
-        {
-            "id": 13, "title": "黄金船 URA 疾风养成指南", "icon": "⚡",
-            "views": 19600, "date": "2024-01-08",
-            "tags": ["育成", "中距离", "差马"],
-            "excerpt": "针对黄金船特性的专属育成方案，稳定达成A+评价，差马专属技能选择推荐。"
-        },
-        {
-            "id": 14, "title": "小栗帽 万能先行育成攻略", "icon": "🥇",
-            "views": 17800, "date": "2024-06-15",
-            "tags": ["育成", "中距离", "先行"],
-            "excerpt": "小栗帽专属育成路线——万能先行跑法，URA冠军杯到传奇赛全覆盖。"
-        },
-        {
-            "id": 15, "title": "冠军集会(CM) 组队与跑法策略", "icon": "🥊",
-            "views": 16300, "date": "2024-11-20",
-            "tags": ["PVP", "冠军集会", "组队"],
-            "excerpt": "冠军集会组队思路——逃先差追配比、技能继承、属性阈值，各赛道最优解分析。"
-        },
-        {
-            "id": 16, "title": "繁中服首抽推荐与开局攻略", "icon": "🚀",
-            "views": 34200, "date": "2024-01-01",
-            "tags": ["新手", "首抽", "开局"],
-            "excerpt": "繁中服首抽SSR支援卡推荐排行榜，开局该抽哪些马娘，少走弯路快速上手。"
+    
+    <!-- ========== 加载动画 ========== -->
+    <div id="loader">
+        <div class="loader-ceramic"></div>
+    </div>
+    
+    <!-- ========== 导航栏 ========== -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">璟瓷堂</div>
+            
+            <ul class="nav-links">
+                <li><a href="#collections">典藏系列</a></li>
+                <li><a href="#masters">大师合作</a></li>
+                <li><a href="#customize">定制服务</a></li>
+                <li><a href="#academy">陶瓷学院</a></li>
+                <li><a href="#about">品牌故事</a></li>
+            </ul>
+            
+            <div class="nav-icons">
+                <button class="lang-switch">EN | 中文</button>
+                <i class="fas fa-search"></i>
+                <i class="fas fa-user"></i>
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ========== 顶部通知栏 ========== -->
+    <div class="top-banner">
+        ✨ 春季新品上市 · 全场8折起 · 满$500全球免邮 <a href="#collections">立即选购 →</a>
+    </div>
+    
+    <!-- ========== Hero 区域 ========== -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-ceramic-vase-being-made-on-a-pottery-wheel-4584-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <p class="hero-subtitle">Timeless Elegance</p>
+            <h1 class="hero-title">传世艺术珍品<br>Handcrafted Perfection</h1>
+            <p class="hero-description">
+                传承千年陶瓷工艺，融合现代美学设计<br>
+                每一件作品都是时间与匠心的结晶
+            </p>
+            <div class="hero-cta">
+                <a href="#collections" class="btn btn-primary">探索珍藏</a>
+                <a href="#customize" class="btn btn-secondary">定制专属</a>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+    
+    <!-- ========== 特色服务 ========== -->
+    <section class="features">
+        <div class="features-container">
+            <div class="feature-item" data-aos="fade-up" data-aos-delay="0">
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3 class="feature-title">100%手工制作</h3>
+                <p class="feature-desc">每件作品均由大师亲手打造<br>独一无二的艺术珍品</p>
+            </div>
+            
+            <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-shipping-fast"></i>
+                </div>
+                <h3 class="feature-title">全球免费配送</h3>
+                <p class="feature-desc">专业防震包装<br>满$500享全球免邮</p>
+            </div>
+            
+            <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">终身品质保证</h3>
+                <p class="feature-desc">30天无理由退换<br>终身免费维护服务</p>
+            </div>
+            
+            <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h3 class="feature-title">权威认证</h3>
+                <p class="feature-desc">附赠真品证书<br>区块链溯源认证</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== 精选系列 ========== -->
+    <section id="collections" class="collections">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">SIGNATURE COLLECTIONS</p>
+            <h2 class="section-title">典藏系列</h2>
+            <p class="section-description">
+                甄选全球顶级陶瓷艺术品，每一件都经过严格的工艺审核<br>
+                将千年东方美学带入您的生活空间
+            </p>
+        </div>
+        
+        <div class="collections-grid">
+            <!-- 产品卡片 1 -->
+            <div class="collection-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="collection-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1610701157657-f88c6d89c8c6?w=800" alt="宋代汝窑天青釉花瓶" class="collection-image">
+                    <span class="collection-badge">大师签名款</span>
+                    <button class="ar-preview-btn">
+                        <i class="fas fa-cube"></i> AR预览
+                    </button>
+                </div>
+                <div class="collection-info">
+                    <p class="collection-category">宋代复刻系列</p>
+                    <h3 class="collection-name">汝窑天青釉花瓶</h3>
+                    <p class="collection-desc">
+                        复刻宋代汝窑经典天青釉色，历经72道工序，1280°C高温烧制，釉面温润如玉，开片自然天成。
+                    </p>
+                    <div class="collection-meta">
+                        <div class="collection-price">
+                            <span class="price-currency">$</span>2,888
+                        </div>
+                        <div class="collection-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(328)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 产品卡片 2 -->
+            <div class="collection-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="collection-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=800" alt="现代极简白瓷茶器" class="collection-image">
+                    <span class="collection-badge">限量200件</span>
+                    <button class="ar-preview-btn">
+                        <i class="fas fa-cube"></i> AR预览
+                    </button>
+                </div>
+                <div class="collection-info">
+                    <p class="collection-category">现代简约系列</p>
+                    <h3 class="collection-name">极简白瓷茶器组</h3>
+                    <p class="collection-desc">
+                        德化白瓷巅峰之作，釉色纯净如雪，线条流畅自然，将东方禅意与现代设计完美融合。
+                    </p>
+                    <div class="collection-meta">
+                        <div class="collection-price">
+                            <span class="price-currency">$</span>1,688
+                        </div>
+                        <div class="collection-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-count">(256)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 产品卡片 3 -->
+            <div class="collection-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="collection-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800" alt="龙泉青瓷梅瓶" class="collection-image">
+                    <span class="collection-badge">非遗传承</span>
+                    <button class="ar-preview-btn">
+                        <i class="fas fa-cube"></i> AR预览
+                    </button>
+                </div>
+                <div class="collection-info">
+                    <p class="collection-category">龙泉青瓷系列</p>
+                    <h3 class="collection-name">翡翠青釉梅瓶</h3>
+                    <p class="collection-desc">
+                        国家级非遗传承人监制，采用失传已久的粉青釉配方，釉色莹润似翡翠，器型典雅端庄。
+                    </p>
+                    <div class="collection-meta">
+                        <div class="collection-price">
+                            <span class="price-currency">$</span>3,588
+                        </div>
+                        <div class="collection-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(412)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 产品卡片 4 -->
+            <div class="collection-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="collection-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1610034447863-0b11a7a0bc3f?w=800" alt="日式侘寂茶碗" class="collection-image">
+                    <span class="collection-badge">日本工艺</span>
+                    <button class="ar-preview-btn">
+                        <i class="fas fa-cube"></i> AR预览
+                    </button>
+                </div>
+                <div class="collection-info">
+                    <p class="collection-category">日式美学系列</p>
+                    <h3 class="collection-name">侘寂志野茶碗</h3>
+                    <p class="collection-desc">
+                        日本著名陶艺家手作，志野釉自然流淌，不完美中蕴含完美，体现"一期一会"的茶道精神。
+                    </p>
+                    <div class="collection-meta">
+                        <div class="collection-price">
+                            <span class="price-currency">$</span>2,288
+                        </div>
+                        <div class="collection-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="rating-count">(189)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== 场景化展示 ========== -->
+    <section class="scene-selector">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">LIFESTYLE INSPIRATION</p>
+            <h2 class="section-title">场景灵感</h2>
+            <p class="section-description">
+                在不同空间中感受陶瓷艺术的魅力<br>
+                选择您的风格，查看推荐搭配
+            </p>
+        </div>
+        
+        <div class="scene-tabs">
+            <button class="scene-tab active" data-scene="modern">新中式客厅</button>
+            <button class="scene-tab" data-scene="japanese">日式茶室</button>
+            <button class="scene-tab" data-scene="office">现代办公</button>
+            <button class="scene-tab" data-scene="gallery">艺术画廊</button>
+        </div>
+        
+        <div class="scene-display" style="background-image: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200');">
+            <div class="scene-products">
+                <div class="scene-product-card">
+                    <img src="https://images.unsplash.com/photo-1610701157657-f88c6d89c8c6?w=200" alt="产品" class="scene-product-img">
+                    <h4 class="scene-product-name">汝窑花瓶</h4>
+                    <p class="scene-product-price">$2,888</p>
+                </div>
+                <div class="scene-product-card">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=200" alt="产品" class="scene-product-img">
+                    <h4 class="scene-product-name">白瓷茶器</h4>
+                    <p class="scene-product-price">$1,688</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== 大师合作 ========== -->
+    <section id="masters" class="masters">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">MASTER CRAFTSMEN</p>
+            <h2 class="section-title">大师合作</h2>
+            <p class="section-description">
+                与全球顶尖陶瓷艺术家深度合作<br>
+                将传统工艺与现代创新完美结合
+            </p>
+        </div>
+        
+        <div class="masters-carousel">
+            <div class="masters-track">
+                <!-- 大师卡片 1 -->
+                <div class="master-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300" alt="李明大师" class="master-avatar">
+                    <h3 class="master-name">李明</h3>
+                    <p class="master-title">国家级工艺美术大师 · 龙泉青瓷传承人</p>
+                    <p class="master-bio">
+                        从艺45年，作品被故宫博物院等多家权威机构收藏。擅长恢复失传的粉青釉技艺，其作品釉色温润如玉，堪称当代青瓷巅峰。
+                    </p>
+                    <button class="master-cta">查看大师作品</button>
+                </div>
+                
+                <!-- 大师卡片 2 -->
+                <div class="master-card">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300" alt="佐藤美子" class="master-avatar">
+                    <h3 class="master-name">佐藤美子</h3>
+                    <p class="master-title">日本人间国宝 · 备前烧传承者</p>
+                    <p class="master-bio">
+                        师从备前烧名门，将传统志野釉技艺发扬光大。作品追求"侘寂"美学，不完美中见真章，深受茶道界推崇。
+                    </p>
+                    <button class="master-cta">查看大师作品</button>
+                </div>
+                
+                <!-- 大师卡片 3 -->
+                <div class="master-card">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300" alt="张伟" class="master-avatar">
+                    <h3 class="master-name">张伟</h3>
+                    <p class="master-title">当代陶艺家 · 清华美院教授</p>
+                    <p class="master-bio">
+                        专注现代陶瓷设计30余年，作品多次获得国际设计大奖。将传统工艺与现代美学完美融合，开创新中式陶瓷新风格。
+                    </p>
+                    <button class="master-cta">查看大师作品</button>
+                </div>
+                
+                <!-- 大师卡片 4 -->
+                <div class="master-card">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300" alt="王雅琴" class="master-avatar">
+                    <h3 class="master-name">王雅琴</h3>
+                    <p class="master-title">景德镇陶瓷世家第五代传人</p>
+                    <p class="master-bio">
+                        出身陶瓷世家，精通粉彩、青花等多种技艺。作品既保留传统神韵，又融入现代审美，被誉为"新工笔瓷画"代表人物。
+                    </p>
+                    <button class="master-cta">查看大师作品</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== 客户见证 ========== -->
+    <section class="testimonials">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">CUSTOMER STORIES</p>
+            <h2 class="section-title">客户评价</h2>
+            <p class="section-description">
+                全球10万+客户的信任之选<br>
+                平均评分4.9/5.0
+            </p>
+        </div>
+        
+        <div class="testimonials-grid">
+            <!-- 评价卡片 1 -->
+            <div class="testimonial-card" data-aos="fade-up">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">
+                    "收到汝窑花瓶的那一刻就被震撼了！天青色的釉面在阳光下变幻莫测，每个角度都有不同的美感。包装非常专业，客服也很贴心。这是我买过最值得的艺术品。"
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Sarah" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Sarah Martinez</h4>
+                        <p>纽约 · 室内设计师</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 评价卡片 2 -->
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">
+                    "作为茶道爱好者，这套志野茶碗完全超出我的预期。釉色自然流淌的痕迹让每个茶碗都独一无二，握在手中温润有质感。已经推荐给茶会的朋友们了！"
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="田中" class="author-avatar">
+                    <div class="author-info">
+                        <h4>田中健太郎</h4>
+                        <p>东京 · 茶道师</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 评价卡片 3 -->
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-quote-left quote-icon"></i>
+                <p class="testimonial-text">
+                    "购买了定制款龙泉青瓷作为公司周年礼品，从设计沟通到成品交付都非常专业。每件作品都附有大师签名证书和区块链认证，品质值得信赖。客户收到后赞不绝口！"
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=100" alt="Chen" class="author-avatar">
+                    <div class="author-info">
+                        <h4>陈建国</h4>
+                        <p>上海 · 企业CEO</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========== Newsletter 订阅 ========== -->
+    <section class="newsletter">
+        <h2 data-aos="fade-up">订阅获取专属优惠</h2>
+        <p data-aos="fade-up" data-aos-delay="100">
+            立即订阅，获取10%新客专享折扣<br>
+            以及最新艺术资讯、独家藏品预售信息
+        </p>
+        <form class="newsletter-form" data-aos="fade-up" data-aos-delay="200">
+            <input type="email" placeholder="输入您的邮箱地址" required>
+            <button type="submit">立即订阅</button>
+        </form>
+    </section>
+    
+    <!-- ========== Footer ========== -->
+    <footer>
+        <div class="footer-content">
+            <!-- 品牌信息 -->
+            <div class="footer-brand">
+                <h3>璟瓷堂</h3>
+                <p>
+                    致力于传承与创新千年陶瓷艺术，为全球客户甄选最具价值的手工陶瓷珍品。我们相信，每一件陶瓷都承载着匠人的心血与时间的沉淀。
+                </p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                </div>
+            </div>
+            
+            <!-- 快捷链接 -->
+            <div class="footer-links">
+                <h4>探索</h4>
+                <ul>
+                    <li><a href="#collections">典藏系列</a></li>
+                    <li><a href="#masters">大师合作</a></li>
+                    <li><a href="#customize">定制服务</a></li>
+                    <li><a href="#academy">陶瓷学院</a></li>
+                    <li><a href="#new">新品预售</a></li>
+                </ul>
+            </div>
+            
+            <!-- 客户服务 -->
+            <div class="footer-links">
+                <h4>客户服务</h4>
+                <ul>
+                    <li><a href="#shipping">配送政策</a></li>
+                    <li><a href="#return">退换货政策</a></li>
+                    <li><a href="#warranty">品质保证</a></li>
+                    <li><a href="#care">保养指南</a></li>
+                    <li><a href="#faq">常见问题</a></li>
+                </ul>
+            </div>
+            
+            <!-- 关于我们 -->
+            <div class="footer-links">
+                <h4>关于我们</h4>
+                <ul>
+                    <li><a href="#story">品牌故事</a></li>
+                    <li><a href="#philosophy">设计理念</a></li>
+                    <li><a href="#showroom">实体展厅</a></li>
+                    <li><a href="#career">招贤纳士</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <!-- 支付方式 -->
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-apple-pay"></i>
+                <i class="fab fa-alipay"></i>
+            </div>
+            
+            <p>
+                © 2024 璟瓷堂 Jingcitang. 保留所有权利 | 
+                <a href="#privacy" style="color: rgba(255,255,255,0.7);">隐私政策</a> | 
+                <a href="#terms" style="color: rgba(255,255,255,0.7);">服务条款</a> | 
+                工信部备案号: 京ICP备2024XXXXXX号
+            </p>
+        </div>
+    </footer>
+    
+    <!-- ========== 返回顶部按钮 ========== -->
+    <button id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <!-- ========== JavaScript 库 ========== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // ========== 初始化动画库 ==========
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+        
+        // ========== 加载动画 ==========
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1500);
+        });
+        
+        // ========== 导航栏滚动效果 ==========
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // ========== 平滑滚动 ==========
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // ========== 场景切换 ==========
+        const sceneTabs = document.querySelectorAll('.scene-tab');
+        const sceneDisplay = document.querySelector('.scene-display');
+        
+        const scenes = {
+            modern: {
+                bg: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200',
+                products: [
+                    { img: 'https://images.unsplash.com/photo-1610701157657-f88c6d89c8c6?w=200', name: '汝窑花瓶', price: '$2,888' },
+                    { img: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=200', name: '白瓷茶器', price: '$1,688' }
+                ]
+            },
+            japanese: {
+                bg: 'https://images.unsplash.com/photo-1545062080-b3eb8d0bf65d?w=1200',
+                products: [
+                    { img: 'https://images.unsplash.com/photo-1610034447863-0b11a7a0bc3f?w=200', name: '志野茶碗', price: '$2,288' },
+                    { img: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=200', name: '茶道组合', price: '$3,188' }
+                ]
+            },
+            office: {
+                bg: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200',
+                products: [
+                    { img: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=200', name: '青瓷笔筒', price: '$1,288' },
+                    { img: 'https://images.unsplash.com/photo-1610701157657-f88c6d89c8c6?w=200', name: '办公摆件', price: '$988' }
+                ]
+            },
+            gallery: {
+                bg: 'https://images.unsplash.com/photo-1577083165633-14ebcdb0f658?w=1200',
+                products: [
+                    { img: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=200', name: '收藏级梅瓶', price: '$5,888' },
+                    { img: 'https://images.unsplash.com/photo-1610701157657-f88c6d89c8c6?w=200', name: '艺术花器', price: '$4,288' }
+                ]
+            }
+        };
+        
+        sceneTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // 更新激活状态
+                sceneTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // 切换场景
+                const scene = tab.dataset.scene;
+                sceneDisplay.style.backgroundImage = `url('${scenes[scene].bg}')`;
+                
+                // 更新产品卡片（此处简化，实际应动态生成）
+            });
+        });
+        
+        // ========== Newsletter 表单提交 ==========
+        document.querySelector('.newsletter-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            
+            // 模拟提交
+            alert(`感谢订阅！欢迎邮件已发送至 ${email}\n\n您的10%专属折扣码: WELCOME10`);
+            e.target.reset();
+        });
+        
+        // ========== 返回顶部按钮 ==========
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 500) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+        
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // ========== 产品卡片3D效果 ==========
+        const cards = document.querySelectorAll('.collection-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+        
+        // ========== 语言切换 ==========
+        document.querySelector('.lang-switch').addEventListener('click', function() {
+            const currentLang = this.textContent.trim();
+            if (currentLang === 'EN | 中文') {
+                this.textContent = '中文 | EN';
+                // 实际项目中这里应该切换语言
+                console.log('切换为英文');
+            } else {
+                this.textContent = 'EN | 中文';
+                console.log('切换为中文');
+            }
+        });
+        
+        // ========== 移动端菜单 ==========
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+        
+        // ========== 性能优化：图片懒加载 ==========
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('img').forEach(img => {
+                imageObserver.observe(img);
+            });
         }
-    ],
-    "news": [
-        {
-            "id": 1, "title": "新育成马娘「Daring Darling!」 勇舞者实装",
-            "date": "2026-05-11",
-            "excerpt": "★★★【Daring Darling!】デアリングハート（勇舞者）正式实装，附带新支援卡卡池"
-        },
-        {
-            "id": 2, "title": "冠军集会 CLASSIC 6月下旬开催",
-            "date": "2026-05-18",
-            "excerpt": "CLASSIC赛季即将开启，提前准备中距离育成马娘和支援卡配置"
-        },
-        {
-            "id": 3, "title": "新★3 采珠实装 附带新支援卡PickUp",
-            "date": "2026-05-01",
-            "excerpt": "シーザリオ（采珠）作为育成马娘登场，智力型新支援卡同步上线"
-        },
-        {
-            "id": 4, "title": "「一番くじ 赛马娘」第14弹今秋发售",
-            "date": "2026-05-01",
-            "excerpt": "最新一番赏情报——D赏「金のゴルシ像」登场，详细奖品阵容公开"
-        },
-        {
-            "id": 5, "title": "春G1纪念任务「橡树杯」进行中",
-            "date": "2026-05-18",
-            "excerpt": "完成限定任务可获得新马娘「Future Weaver シーザリオ」碎片"
-        },
-        {
-            "id": 6, "title": "新★3 采珠（CV: 石原夏织）登场",
-            "date": "2026-04-20",
-            "excerpt": "采珠正式实装，冠军集会 DIRT 赛季同时开催"
-        },
-        {
-            "id": 7, "title": "第14回 LoH 英雄联赛编成期间开始",
-            "date": "2026-05-18",
-            "excerpt": "リーグオブヒーローズ第14回，团队编成期间5/18~，主赛事5/22开赛"
-        },
-        {
-            "id": 8, "title": "Steam版数据联动特典发放中",
-            "date": "2025-06-26",
-            "excerpt": "Steam版正式上线，手机端数据联动可获得宝石500·支援Pt25000等奖励"
-        }
-    ],
-    "characters": [
-        { "id": 1, "name": "特别周", "jp": "スペシャルウィーク", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 2, "name": "无声铃鹿", "jp": "サイレンススズカ", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
-        { "id": 3, "name": "东海帝皇", "jp": "トウカイテイオー", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
-        { "id": 4, "name": "丸善斯基", "jp": "マルゼンスキー", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
-        { "id": 5, "name": "富士奇迹", "jp": "フジキセキ", "type": "角色", "tags": ["先行", "英里", "SSR"] },
-        { "id": 6, "name": "小栗帽", "jp": "オグリキャップ", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 7, "name": "黄金船", "jp": "ゴールドシップ", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 8, "name": "伏特加", "jp": "ウオッカ", "type": "角色", "tags": ["先行", "英里", "SSR"] },
-        { "id": 9, "name": "大和赤骥", "jp": "ダイワスカーレット", "type": "角色", "tags": ["逃马", "英里", "SSR"] },
-        { "id": 10, "name": "大树快车", "jp": "タイキシャトル", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
-        { "id": 11, "name": "草上飞", "jp": "グラスワンダー", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 12, "name": "菱亚马逊", "jp": "ヒシアマゾン", "type": "角色", "tags": ["先行", "中距离", "SR"] },
-        { "id": 13, "name": "目白麦昆", "jp": "メジロマックイーン", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
-        { "id": 14, "name": "神鹰", "jp": "エルコンドルパサー", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 15, "name": "好歌剧", "jp": "テイエムオペラオー", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 16, "name": "成田白仁", "jp": "ナリタブライアン", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 17, "name": "鲁道夫象征", "jp": "シンボリルドルフ", "type": "角色", "tags": ["先行", "长距离", "SSR"] },
-        { "id": 18, "name": "气槽", "jp": "エアグルーヴ", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 19, "name": "爱丽数码", "jp": "アグネスデジタル", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 20, "name": "星云天空", "jp": "セイウンスカイ", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
-        { "id": 21, "name": "米浴", "jp": "ライスシャワー", "type": "角色", "tags": ["差马", "长距离", "SR"] },
-        { "id": 22, "name": "美浦波旁", "jp": "ミホノブルボン", "type": "角色", "tags": ["逃马", "中距离", "SSR"] },
-        { "id": 23, "name": "真机伶", "jp": "カレンチャン", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
-        { "id": 24, "name": "青竹回忆", "jp": "バンブーメモリー", "type": "角色", "tags": ["差马", "短距离", "SR"] },
-        { "id": 25, "name": "樱花进王", "jp": "サクラバクシンオー", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
-        { "id": 26, "name": "超级小溪", "jp": "スーパークリーク", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 27, "name": "玉藻十字", "jp": "タマモクロス", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 28, "name": "稻荷一号", "jp": "イナリワン", "type": "角色", "tags": ["先行", "中距离", "SR"] },
-        { "id": 29, "name": "胜利奖券", "jp": "ウイニングチケット", "type": "角色", "tags": ["先行", "中距离", "SR"] },
-        { "id": 30, "name": "琵琶晨光", "jp": "ビワハヤヒデ", "type": "角色", "tags": ["先行", "长距离", "SR"] },
-        { "id": 31, "name": "重炮", "jp": "マヤノトップガン", "type": "角色", "tags": ["先行", "中距离", "SR"] },
-        { "id": 32, "name": "目白赖安", "jp": "メジロライアン", "type": "角色", "tags": ["逃马", "长距离", "SR"] },
-        { "id": 33, "name": "双涡轮", "jp": "ツインターボ", "type": "角色", "tags": ["逃马", "短距离", "R"] },
-        { "id": 34, "name": "艾尼斯风神", "jp": "アイネスフウジン", "type": "角色", "tags": ["逃马", "英里", "SSR"] },
-        { "id": 35, "name": "爱丽速子", "jp": "アグネスタキオン", "type": "角色", "tags": ["先行", "长距离", "SSR"] },
-        { "id": 36, "name": "爱慕织姬", "jp": "アドマイヤベガ", "type": "角色", "tags": ["差马", "中距离", "SR"] },
-        { "id": 37, "name": "名将怒涛", "jp": "メイショウドトウ", "type": "角色", "tags": ["先行", "中距离", "SR"] },
-        { "id": 38, "name": "荣进闪耀", "jp": "エイシンフラッシュ", "type": "角色", "tags": ["先行", "英里", "SR"] },
-        { "id": 39, "name": "东瀛佐敦", "jp": "トーセンジョーダン", "type": "角色", "tags": ["差马", "英里", "SR"] },
-        { "id": 40, "name": "曼城茶座", "jp": "マンハッタンカフェ", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 41, "name": "中山庆典", "jp": "ナカヤマフェスタ", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 42, "name": "美妙姿势", "jp": "ナイスネイチャ", "type": "角色", "tags": ["逃马", "英里", "SSR"] },
-        { "id": 43, "name": "北部玄驹", "jp": "キタサンブラック", "type": "角色", "tags": ["先行", "长距离", "SSR"] },
-        { "id": 44, "name": "里见光钻", "jp": "サトノダイヤモンド", "type": "角色", "tags": ["先行", "长距离", "SSR"] },
-        { "id": 45, "name": "高尚骏逸", "jp": "シュヴァルグラン", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 46, "name": "目白多伯", "jp": "メジロドーベル", "type": "角色", "tags": ["先行", "中距离", "SR"] },
-        { "id": 47, "name": "待兼诗歌剧", "jp": "マチカネタンホイザ", "type": "角色", "tags": ["先行", "中距离", "SR"] },
-        { "id": 48, "name": "待兼福来", "jp": "マチカネフクキタル", "type": "角色", "tags": ["先行", "长距离", "SR"] },
-        { "id": 49, "name": "菱钻奇宝", "jp": "ヒシミラクル", "type": "角色", "tags": ["差马", "中距离", "SR"] },
-        { "id": 50, "name": "川上公主", "jp": "カワカミプリンセス", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 51, "name": "千明代表", "jp": "ミスターシービー", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 52, "name": "醒目飞鹰", "jp": "スマートファルコン", "type": "角色", "tags": ["逃马", "短距离", "SSR"] },
-        { "id": 53, "name": "采珠", "jp": "シーザリオ", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 54, "name": "新宇宙", "jp": "ネオユニヴァース", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 55, "name": "吉兆", "jp": "シンボリクリスエス", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 56, "name": "谷水琴蕾", "jp": "タニノギムレット", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 57, "name": "成田大进", "jp": "ナリタタイシン", "type": "角色", "tags": ["差马", "中距离", "SR"] },
-        { "id": 58, "name": "樱花桂冠", "jp": "サクラローレル", "type": "角色", "tags": ["差马", "中距离", "SR"] },
-        { "id": 59, "name": "目白阿尔丹", "jp": "メジロアルダン", "type": "角色", "tags": ["先行", "中距离", "SSR"] },
-        { "id": 60, "name": "第一红宝石", "jp": "ダイイチルビー", "type": "角色", "tags": ["先行", "短距离", "SSR"] },
-        { "id": 61, "name": "乌拉拉", "jp": "ハルウララ", "type": "角色", "tags": ["差马", "短距离", "R"] },
-        { "id": 62, "name": "东商变革", "jp": "トーセンジョーダン", "type": "角色", "tags": ["差马", "英里", "SR"] },
-        { "id": 63, "name": "空中神宫", "jp": "エアシャカール", "type": "角色", "tags": ["差马", "中距离", "SSR"] },
-        { "id": 64, "name": "目白光明", "jp": "メジロブライト", "type": "角色", "tags": ["逃马", "中距离", "SR"] },
-        { "id": 65, "name": "也文摄辉", "jp": "ヤマニンゼファー", "type": "角色", "tags": ["逃马", "英里", "SR"] },
-        { "id": 66, "name": "目白善信", "jp": "メジロパーマー", "type": "角色", "tags": ["逃马", "长距离", "SSR"] },
-        { "id": 67, "name": "西野花", "jp": "ニシノフラワー", "type": "角色", "tags": ["先行", "英里", "SR"] },
-        { "id": 68, "name": "小林历奇", "jp": "コパノリッキー", "type": "角色", "tags": ["逃马", "短距离", "SSR"] }
-    ],
-    "supports": [
-        { "id": 1, "name": "SSR 速子 - Q≠0", "type": "支援卡", "tags": ["速度", "SSR", "先行"] },
-        { "id": 2, "name": "SSR 北部玄驹 - 被逼近的熱情推著", "type": "支援卡", "tags": ["速度", "SSR", "全距离"] },
-        { "id": 3, "name": "SSR 丸善斯基 - 感傷警報♪", "type": "支援卡", "tags": ["速度", "SSR", "逃马"] },
-        { "id": 4, "name": "SSR 神鹰 - 渾身泥濘的夥伴", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 5, "name": "SSR 樱花进王 - 爆进!", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 6, "name": "SSR 小栗帽 - 奔跑吧奔跑吧", "type": "支援卡", "tags": ["智力", "SSR", "友人"] },
-        { "id": 7, "name": "SSR 亚马逊 - 徹底管理主義", "type": "支援卡", "tags": ["耐力", "SSR"] },
-        { "id": 8, "name": "SSR 超级小溪 - 一顆的安逸感", "type": "支援卡", "tags": ["耐力", "SSR"] },
-        { "id": 9, "name": "SR 绿帽·骏川手纲", "type": "支援卡", "tags": ["耐力", "SR"] },
-        { "id": 10, "name": "SR 米浴 - 走過轉角就是幸福", "type": "支援卡", "tags": ["耐力", "SR"] },
-        { "id": 11, "name": "SSR 伏特加 - 不凍的アクア", "type": "支援卡", "tags": ["力量", "SSR"] },
-        { "id": 12, "name": "SSR 气槽 - エレガント", "type": "支援卡", "tags": ["力量", "SSR"] },
-        { "id": 13, "name": "SSR 重炮 - 花嫁", "type": "支援卡", "tags": ["力量", "SSR"] },
-        { "id": 14, "name": "SR 东瀛佐敦", "type": "支援卡", "tags": ["力量", "SR"] },
-        { "id": 15, "name": "SSR 双涡轮 - TT Ignition!", "type": "支援卡", "tags": ["毅力", "SSR"] },
-        { "id": 16, "name": "SSR 好歌剧", "type": "支援卡", "tags": ["毅力", "SSR"] },
-        { "id": 17, "name": "SSR 名将怒涛", "type": "支援卡", "tags": ["毅力", "SSR"] },
-        { "id": 18, "name": "SSR 鲁道夫象征", "type": "支援卡", "tags": ["智力", "SSR"] },
-        { "id": 19, "name": "SSR 美妙姿势 - 燦爛", "type": "支援卡", "tags": ["智力", "SSR"] },
-        { "id": 20, "name": "SSR 内恰", "type": "支援卡", "tags": ["智力", "SSR"] },
-        { "id": 21, "name": "SR 小说家·荣进闪耀", "type": "支援卡", "tags": ["智力", "SR"] },
-        { "id": 22, "name": "SR 诗歌剧", "type": "支援卡", "tags": ["智力", "SR"] },
-        { "id": 23, "name": "SSR 友人·桐生院葵", "type": "支援卡", "tags": ["友人", "SSR"] },
-        { "id": 24, "name": "SSR 友人·葵", "type": "支援卡", "tags": ["友人", "SSR"] },
-        { "id": 25, "name": "SR 友人·凉花", "type": "支援卡", "tags": ["友人", "SR"] },
-        { "id": 26, "name": "SSR 美丽周日", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 27, "name": "SSR 川上公主", "type": "支援卡", "tags": ["耐力", "SSR"] },
-        { "id": 28, "name": "SSR 天狼星", "type": "支援卡", "tags": ["力量", "SSR"] },
-        { "id": 29, "name": "SSR 青竹回忆", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 30, "name": "SSR 数码", "type": "支援卡", "tags": ["毅力", "SSR"] },
-        { "id": 31, "name": "SSR 目白善信 - 與笨蛋一起笑", "type": "支援卡", "tags": ["毅力", "SSR", "逃马"] },
-        { "id": 32, "name": "SSR 艾尼斯风神 - 閃耀地飛身而出", "type": "支援卡", "tags": ["毅力", "SSR", "逃马"] },
-        { "id": 33, "name": "SSR 吉兆 - A Win Foreshadowed", "type": "支援卡", "tags": ["耐力", "SSR", "居中"] },
-        { "id": 34, "name": "SSR 曼城茶座 - It's on the house.", "type": "支援卡", "tags": ["耐力", "SSR", "居中"] },
-        { "id": 35, "name": "SSR 特别周 - 和我們一起抓住夢想吧！", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 36, "name": "SSR 爱慕织姬 - 目標是一等星", "type": "支援卡", "tags": ["力量", "SSR"] },
-        { "id": 37, "name": "SSR 成田白仁", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 38, "name": "SSR 东海帝皇 - 帝皇皇皇!!!", "type": "支援卡", "tags": ["智力", "SSR"] },
-        { "id": 39, "name": "SSR 星云天空", "type": "支援卡", "tags": ["速度", "SSR", "逃马"] },
-        { "id": 40, "name": "SSR 大树快车", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 41, "name": "SSR 目白赖恩", "type": "支援卡", "tags": ["耐力", "SSR"] },
-        { "id": 42, "name": "SSR 草上飞", "type": "支援卡", "tags": ["智力", "SSR"] },
-        { "id": 43, "name": "SSR 稻荷一号", "type": "支援卡", "tags": ["力量", "SSR"] },
-        { "id": 44, "name": "SSR 胜利奖券", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 45, "name": "SSR 玉藻十字", "type": "支援卡", "tags": ["智力", "SSR"] },
-        { "id": 46, "name": "SSR 爱丽数码", "type": "支援卡", "tags": ["智力", "SSR"] },
-        { "id": 47, "name": "SSR 乌拉拉", "type": "支援卡", "tags": ["毅力", "SSR"] },
-        { "id": 48, "name": "SSR 东商变革 - 見習魔女與漫漫長夜", "type": "支援卡", "tags": ["速度", "SSR"] },
-        { "id": 49, "name": "SR 速子", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 50, "name": "SR 伏特加", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 51, "name": "SR 大树快车", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 52, "name": "SR 樱花进王", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 53, "name": "SR 小栗帽", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 54, "name": "SR 黄金船", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 55, "name": "SR 富士奇迹", "type": "支援卡", "tags": ["力量", "SR"] },
-        { "id": 56, "name": "SR 草上飞", "type": "支援卡", "tags": ["力量", "SR"] },
-        { "id": 57, "name": "SR 神鹰", "type": "支援卡", "tags": ["力量", "SR"] },
-        { "id": 58, "name": "SR 大和赤骥", "type": "支援卡", "tags": ["毅力", "SR"] },
-        { "id": 59, "name": "SR 好歌剧", "type": "支援卡", "tags": ["毅力", "SR"] },
-        { "id": 60, "name": "SR 目白麦昆", "type": "支援卡", "tags": ["耐力", "SR"] },
-        { "id": 61, "name": "SR 超级小溪", "type": "支援卡", "tags": ["耐力", "SR"] },
-        { "id": 62, "name": "SR 菱亚马逊", "type": "支援卡", "tags": ["耐力", "SR"] },
-        { "id": 63, "name": "SR 重炮", "type": "支援卡", "tags": ["毅力", "SR"] },
-        { "id": 64, "name": "SR 美浦波旁", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 65, "name": "SR 米浴", "type": "支援卡", "tags": ["耐力", "SR"] },
-        { "id": 66, "name": "SR 双涡轮", "type": "支援卡", "tags": ["毅力", "SR"] },
-        { "id": 67, "name": "SR 真机伶", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 68, "name": "SR 艾尼斯风神", "type": "支援卡", "tags": ["智力", "SR"] },
-        { "id": 69, "name": "SR 青竹回忆", "type": "支援卡", "tags": ["速度", "SR"] },
-        { "id": 70, "name": "SR 稻荷一号", "type": "支援卡", "tags": ["力量", "SR"] },
-        { "id": 71, "name": "SR 胜利奖券", "type": "支援卡", "tags": ["力量", "SR"] },
-        { "id": 72, "name": "SR 琵琶晨光", "type": "支援卡", "tags": ["耐力", "SR"] },
-        { "id": 73, "name": "SR 鲁道夫象征", "type": "支援卡", "tags": ["智力", "SR"] },
-        { "id": 74, "name": "R 特别周", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 75, "name": "R 无声铃鹿", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 76, "name": "R 东海帝皇", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 77, "name": "R 丸善斯基", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 78, "name": "R 黄金船", "type": "支援卡", "tags": ["毅力", "R"] },
-        { "id": 79, "name": "R 伏特加", "type": "支援卡", "tags": ["力量", "R"] },
-        { "id": 80, "name": "R 大和赤骥", "type": "支援卡", "tags": ["力量", "R"] },
-        { "id": 81, "name": "R 大树快车", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 82, "name": "R 草上飞", "type": "支援卡", "tags": ["力量", "R"] },
-        { "id": 83, "name": "R 菱亚马逊", "type": "支援卡", "tags": ["耐力", "R"] },
-        { "id": 84, "name": "R 目白麦昆", "type": "支援卡", "tags": ["耐力", "R"] },
-        { "id": 85, "name": "R 神鹰", "type": "支援卡", "tags": ["力量", "R"] },
-        { "id": 86, "name": "R 好歌剧", "type": "支援卡", "tags": ["毅力", "R"] },
-        { "id": 87, "name": "R 成田白仁", "type": "支援卡", "tags": ["力量", "R"] },
-        { "id": 88, "name": "R 鲁道夫象征", "type": "支援卡", "tags": ["智力", "R"] },
-        { "id": 89, "name": "R 气槽", "type": "支援卡", "tags": ["力量", "R"] },
-        { "id": 90, "name": "R 爱丽数码", "type": "支援卡", "tags": ["智力", "R"] },
-        { "id": 91, "name": "R 米浴", "type": "支援卡", "tags": ["耐力", "R"] },
-        { "id": 92, "name": "R 美浦波旁", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 93, "name": "R 真机伶", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 94, "name": "R 青竹回忆", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 95, "name": "R 樱花进王", "type": "支援卡", "tags": ["速度", "R"] },
-        { "id": 96, "name": "R 超级小溪", "type": "支援卡", "tags": ["耐力", "R"] },
-        { "id": 97, "name": "R 玉藻十字", "type": "支援卡", "tags": ["智力", "R"] },
-        { "id": 98, "name": "R 双涡轮", "type": "支援卡", "tags": ["毅力", "R"] },
-        { "id": 99, "name": "SSR 杏目 - 速度卡", "type": "支援卡", "tags": ["速度", "SSR", "限定"] },
-        { "id": 100, "name": "SSR 爱如往昔 - 速度卡", "type": "支援卡", "tags": ["速度", "SSR", "限定"] },
-        { "id": 101, "name": "SSR 醒目飞鹰 - 速度卡", "type": "支援卡", "tags": ["速度", "SSR", "逃马"] },
-        { "id": 102, "name": "SSR 成田白仁(新) - 速度卡", "type": "支援卡", "tags": ["速度", "SSR", "先行"] },
-        { "id": 103, "name": "SSR 黄金巨匠 - 马娘", "type": "支援卡", "tags": ["限定", "SSR"] },
-        { "id": 104, "name": "SSR 放声欢呼 - 马娘", "type": "支援卡", "tags": ["英里", "SSR"] },
-        { "id": 105, "name": "SSR 三女神团体卡", "type": "支援卡", "tags": ["团体", "SSR", "限定"] },
-        { "id": 106, "name": "SSR 天狼星团体卡", "type": "支援卡", "tags": ["团体", "SSR"] },
-        { "id": 107, "name": "SSR 皇团 - 齐聚于王座之人", "type": "支援卡", "tags": ["团体", "SSR", "限定"] },
-        { "id": 108, "name": "SSR 空中神宫 - 耐力卡", "type": "支援卡", "tags": ["耐力", "SSR"] }
-    ],
-    "friendLinks": [
-        { "name": "NGA赛马娘版", "url": "https://nga.178.com/thread.php?fid=784" },
-        { "name": "GameWith(日本)", "url": "https://gamewith.jp/uma-musume/" },
-        { "name": "Kamigame(日本)", "url": "https://kamigame.jp/uma-musume/" },
-        { "name": "Bilibili Wiki", "url": "https://wiki.biligame.com/umamusume/" },
-        { "name": "巴哈姆特哈啦板", "url": "https://forum.gamer.com.tw/B.php?bsn=34421" },
-        { "name": "GameTora数据库", "url": "https://gametora.com/zh-tw/umamusume/characters" },
-        { "name": "繁中服攻略站", "url": "https://uma.gamertb.com/" },
-        { "name": "官方繁中站", "url": "https://uma.komoejoy.com/" }
-    ]
-};C.chars=C.characters||C.chars;C.supps=C.supports||C.supps;C.fl=C.friendLinks||C.fl;
-if(C.guides){for(var _i=0;_i<C.guides.length;_i++){var _g=C.guides[_i];_g.i=_g.i||_g.icon;_g.t=_g.t||_g.title;_g.e=_g.e||_g.excerpt;_g.v=_g.v||_g.views;_g.dt=_g.dt||_g.date;_g.ta=_g.ta||_g.tags}}
-if(C.tools){for(var _i=0;_i<C.tools.length;_i++){var _t=C.tools[_i];_t.i=_t.i||_t.icon;_t.t=_t.t||_t.title;_t.d=_t.d||_t.description}}
-if(C.news){for(var _i=0;_i<C.news.length;_i++){var _n=C.news[_i];_n.t=_n.t||_n.title;_n.dt=_n.dt||_n.date;_n.e=_n.e||_n.excerpt}}
-if(C.chars){for(var _i=0;_i<C.chars.length;_i++){var _c=C.chars[_i];_c.n=_c.n||_c.name;_c.ta=_c.ta||_c.tags}}
-if(C.supps){for(var _i=0;_i<C.supps.length;_i++){var _s=C.supps[_i];_s.n=_s.n||_s.name;_s.ta=_s.ta||_s.tags}}
-try{render()}catch(e){}
-
-var dp=$('dp'),dc=$('dc'),db=$('db');
-db.onclick=function(){dp.classList.remove('s')};
-function sp(t,c){db.textContent='\u2190 \u8FD4\u56DE';dp.classList.add('s');
-dc.innerHTML='<h2 style="font-size:1.3rem;font-weight:700;margin-bottom:10px;color:var(--tx)">'+t+'</h2><div class="de">'+c+'</div>';
-dp.scrollTop=0}
-
-function bh(){$('fg').onclick=function(e){var p=e.target.closest('.fc');if(!p)return;var i=Array.from(p.parentNode.children).indexOf(p),g=(C.guides||F.guides||[])[i];if(!g)return;var h='';if(g.ta)h+='<div style="display:flex;gap:4px;margin-bottom:6px">';for(var j=0;j<(g.ta||[]).length;j++)h+='<span style="font-size:.6rem;background:#efedeb;padding:2px 8px;border-radius:4px;color:#5a5048">'+g.ta[j]+'</span>';if(g.ta)h+='</div>';if(g.dt)h+='<div style="font-size:.7rem;color:var(--mt);margin-bottom:8px">\uD83D\uDCC5 '+g.dt+(g.v?' \uD83D\uDC41 '+g.v.toLocaleString():'')+'</div>';h+='<div style="font-size:.88rem;line-height:1.8">'+(g.e||g.excerpt||'')+'</div>';sp(g.t||g.title||'',h)};$('tl').onclick=function(e){var p=e.target.closest('.tc');if(!p)return;var i=Array.from(p.parentNode.children).indexOf(p),t=(C.tools||F.tools||[])[i];if(!t)return;sp(t.t||t.title||'',(t.d||t.description||'')+(t.url?'<div style="margin-top:10px"><a href="'+t.url+'" style="color:var(--gd);font-size:.78rem">\u2192 \u6253\u5F00\u5DE5\u5177</a></div>':''))};$('nl').onclick=function(e){var p=e.target.closest('.ni');if(!p)return;var i=Array.from(p.parentNode.children).indexOf(p),n=(C.news||F.news||[])[i];if(!n)return;var h='';if(n.dt)h+='<div style="font-size:.7rem;color:var(--mt);margin-bottom:8px">\uD83D\uDCC5 '+n.dt+'</div>';h+='<div style="font-size:.88rem;line-height:1.8">'+(n.e||n.excerpt||'')+'</div>';sp(n.t||n.title||'',h)};$('cg').onclick=function(e){var p=e.target.closest('.cc');if(!p)return;var i=Array.from(p.parentNode.children).indexOf(p),ch=C.chars||F.chars||[],c=ch[i];if(!c)return;var h='';if(c.jp)h+='<div style="font-size:.9rem;color:var(--mt);margin-bottom:8px">'+c.jp+'</div>';if(c.ta&&c.ta.length){h+='<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">';for(var j=0;j<c.ta.length;j++){var cl=tc(c.ta);h+='<span style="font-size:.6rem;font-weight:600;padding:2px 8px;border-radius:4px;background:'+(c.ta[j]=='速度'?'#e6f0e6':c.ta[j]=='耐力'?'#faf0d6':c.ta[j]=='力量'?'#f8e0de':c.ta[j]=='毅力'?'#e0eaf6':c.ta[j]=='智力'?'#eee6f6':c.ta[j]=='逃马'?'#f0eaea':c.ta[j]=='先行'?'#eaeef2':'#eeeee8')+';color:'+(c.ta[j]=='速度'?'#1a7a3a':c.ta[j]=='耐力'?'#a07010':c.ta[j]=='力量'?'#b13030':c.ta[j]=='毅力'?'#1a5a9a':c.ta[j]=='智力'?'#6a3a9a':c.ta[j]=='逃马'?'#8a3a3a':c.ta[j]=='先行'?'#3a5a7a':'#6a6a5a')+'">'+c.ta[j]+'</span>'}h+='</div>'}sp(c.n||c.name||'',h)};$('sg').onclick=function(e){var p=e.target.closest('.sc');if(!p)return;var i=Array.from(p.parentNode.children).indexOf(p),sl=C.supps||F.supps||[],s=sl[i];if(!s)return;var h='';if(s.ta&&s.ta.length){h+='<div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px">';for(var j=0;j<s.ta.length;j++){h+='<span style="font-size:.6rem;font-weight:600;padding:2px 8px;border-radius:4px;background:'+(s.ta[j]=='速度'?'#e6f0e6':s.ta[j]=='耐力'?'#faf0d6':s.ta[j]=='力量'?'#f8e0de':s.ta[j]=='毅力'?'#e0eaf6':s.ta[j]=='智力'?'#eee6f6':s.ta[j]=='SSR'?'#fef0d6':s.ta[j]=='SR'?'#e0eaf6':s.ta[j]=='限定'?'#f8e0de':'#eeeee8')+';color:'+(s.ta[j]=='速度'?'#1a7a3a':s.ta[j]=='耐力'?'#a07010':s.ta[j]=='力量'?'#b13030':s.ta[j]=='毅力'?'#1a5a9a':s.ta[j]=='智力'?'#6a3a9a':s.ta[j]=='SSR'?'#a06810':s.ta[j]=='SR'?'#1a5a9a':s.ta[j]=='限定'?'#b13030':'#6a6a5a')+'">'+s.ta[j]+'</span>'}h+='</div>'}sp(s.n||s.name||'',h)}}
-try{bh()}catch(e){}
-})();</script>
+        
+        // ========== 添加购物车动画（示例） ==========
+        document.querySelectorAll('.collection-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.ar-preview-btn')) {
+                    // 跳转到产品详情页（示例）
+                    console.log('打开产品详情页');
+                    // window.location.href = '/product-detail.html';
+                }
+            });
+        });
+        
+        // ========== AR预览按钮 ==========
+        document.querySelectorAll('.ar-preview-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                alert('AR预览功能演示\n\n请使用手机扫描二维码或点击移动端链接\n即可在您的空间中预览陶瓷摆件效果');
+            });
+        });
+        
+        // ========== 控制台彩蛋 ==========
+        console.log('%c璟瓷堂 Jingcitang', 'font-size: 50px; color: #C9A961; font-weight: bold;');
+        console.log('%c传世艺术珍品 · Timeless Ceramic Elegance', 'font-size: 16px; color: #8B8680;');
+        console.log('%c\n感谢您访问我们的网站！\n如需技术支持，请联系: tech@jingcitang.com', 'color: #4A6FA5;');
+    </script>
+    
 </body>
 </html>
